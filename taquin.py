@@ -4,13 +4,17 @@ class Taquin:
     'this class contains the game, of size n, in the form of a matrice. n is the size of the game, r = True or False generates a shuffled or ordered version of the game'
     
     def __init__(self, n : int, r : bool):
-      self.n = n
+      self.numberF = n
+      if np.sqrt(n + 1) % 1 != 0:
+          raise ValueError('n given cannot create a game')
+      self.n = int(np.sqrt(n + 1))
       seq = np.append(np.arange(1, self.n**2),[None])
       if r:
           rng = np.random.default_rng()
           rng.shuffle(seq)
       self.mat = np.reshape(seq,(self.n,self.n))
       self.avail = np.where(self.mat == None)
+      self.path = []
       
     def move_right(self):
         if self.avail[1] == 0:
@@ -51,5 +55,5 @@ class Taquin:
                     print(col, end="\t")
             print()
             
-taq = Taquin(3, True)
+taq = Taquin(8, True)
 taq.showmat()
