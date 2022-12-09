@@ -17,7 +17,7 @@ class Taquin:
       self.path = []
       
     def move_left(self):
-        if self.avail[1] == 0:
+        if self.avail[1] == 0: #0 correspond a ligne et 1 a colonne
             raise Exception("cannot move left")
         else: 
             self.mat[self.avail[0]][self.avail[1]] = self.mat[self.avail[0]][self.avail[1]-1]
