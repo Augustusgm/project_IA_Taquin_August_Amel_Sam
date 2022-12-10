@@ -22,6 +22,7 @@ class Taquin:
         else: 
             self.mat[self.avail[0]][self.avail[1]] = self.mat[self.avail[0]][self.avail[1]-1] 
             self.mat[self.avail[0]][self.avail[1]-1] = 0
+            self.avail[1]-=1
             
     def move_right(self):
         if self.avail[1] == self.n-1:
@@ -29,6 +30,7 @@ class Taquin:
         else: 
             self.mat[self.avail[0]][self.avail[1]] = self.mat[self.avail[0]][self.avail[1]+1] 
             self.mat[self.avail[0]][self.avail[1]+1] = 0
+            self.avail[1]+=1
         
     """method to slide up, this switches the values in the state matrix between the empty square and the one under it"""
     def move_down(self):
@@ -37,6 +39,7 @@ class Taquin:
             else: 
                 self.mat[self.avail[0]][self.avail[1]] = self.mat[self.avail[0]+1][self.avail[1]]
                 self.mat[self.avail[0]+1][self.avail[1]] = 0
+                self.avail[0]+=1
                 
     def move_up(self):
             if self.avail[0] == 0: 
@@ -44,6 +47,7 @@ class Taquin:
             else: 
                 self.mat[self.avail[0]][self.avail[1]] = self.mat[self.avail[0]-1][self.avail[1]] 
                 self.mat[self.avail[0]-1][self.avail[1]] = 0
+                self.avail[0]-=1
                 
     def showmat(self):
         # Afficher la grille du taquin dans la console.
