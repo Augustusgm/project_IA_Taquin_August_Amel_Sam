@@ -15,7 +15,8 @@ class Taquin:
       self.mat = np.reshape(seq,(self.n,self.n))
       self.avail = np.where(self.mat == 0)
       self.path = []
-      
+    
+    """method to slide empty square left"""  
     def move_left(self):
         if self.avail[1] == 0: #0 correspond a ligne et 1 a colonne
             raise Exception("cannot move left")
@@ -23,7 +24,8 @@ class Taquin:
             self.mat[self.avail[0]][self.avail[1]] = self.mat[self.avail[0]][self.avail[1]-1] 
             self.mat[self.avail[0]][self.avail[1]-1] = 0
             self.avail[1]-=1
-            
+    
+    """method to slide empty square right"""          
     def move_right(self):
         if self.avail[1] == self.n-1:
             raise Exception("cannot move right")
@@ -32,7 +34,7 @@ class Taquin:
             self.mat[self.avail[0]][self.avail[1]+1] = 0
             self.avail[1]+=1
         
-    """method to slide up, this switches the values in the state matrix between the empty square and the one under it"""
+    """method to slide empty square down, this switches the values in the state matrix between the empty square and the one under it"""
     def move_down(self):
             if self.avail[0] == self.n-1: 
                 raise Exception("cannot move down")
@@ -40,7 +42,8 @@ class Taquin:
                 self.mat[self.avail[0]][self.avail[1]] = self.mat[self.avail[0]+1][self.avail[1]]
                 self.mat[self.avail[0]+1][self.avail[1]] = 0
                 self.avail[0]+=1
-                
+
+    """method to slide empty square up"""                  
     def move_up(self):
             if self.avail[0] == 0: 
                 raise Exception("cannot move up")
