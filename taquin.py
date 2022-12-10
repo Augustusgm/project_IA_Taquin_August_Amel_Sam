@@ -20,29 +20,29 @@ class Taquin:
         if self.avail[1] == 0: #0 correspond a ligne et 1 a colonne
             raise Exception("cannot move left")
         else: 
-            self.mat[self.avail[0]][self.avail[1]] = self.mat[self.avail[0]][self.avail[1]-1]
+            self.mat[self.avail[0]][self.avail[1]] = self.mat[self.avail[0]][self.avail[1]-1] 
             self.mat[self.avail[0]][self.avail[1]-1] = 0
             
     def move_right(self):
         if self.avail[1] == self.n-1:
             raise Exception("cannot move right")
         else: 
-            self.mat[self.avail[0]][self.avail[1]] = self.mat[self.avail[0]][self.avail[1]+1]
+            self.mat[self.avail[0]][self.avail[1]] = self.mat[self.avail[0]][self.avail[1]+1] 
             self.mat[self.avail[0]][self.avail[1]+1] = 0
         
     """method to slide up, this switches the values in the state matrix between the empty square and the one under it"""
     def move_down(self):
-            if self.avail[0] == self.n-1:
+            if self.avail[0] == self.n-1: 
                 raise Exception("cannot move down")
             else: 
                 self.mat[self.avail[0]][self.avail[1]] = self.mat[self.avail[0]+1][self.avail[1]]
                 self.mat[self.avail[0]+1][self.avail[1]] = 0
                 
     def move_up(self):
-            if self.avail[0] == 0:
+            if self.avail[0] == 0: 
                 raise Exception("cannot move up")
             else: 
-                self.mat[self.avail[0]][self.avail[1]] = self.mat[self.avail[0]-1][self.avail[1]]
+                self.mat[self.avail[0]][self.avail[1]] = self.mat[self.avail[0]-1][self.avail[1]] 
                 self.mat[self.avail[0]-1][self.avail[1]] = 0
                 
     def showmat(self):
