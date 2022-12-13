@@ -9,13 +9,20 @@ class Taquin:
           raise ValueError('n given cannot create a game')
       self.n = int(np.sqrt(n + 1))
       seq = np.append(np.arange(1, self.n**2),[0])
+      gseq = seq
       if r:
           rng = np.random.default_rng()
           rng.shuffle(seq)
       self.mat = np.reshape(seq,(self.n,self.n))
+      self.goal = np.reshape(gseq,(self.n,self.n))
       self.avail = np.where(self.mat == 0)
       self.path = []
       
+    """method to find if the game has reached a goal state"""  
+    def goal_bool(self):
+        return self.mat == self.goal
+    
+    """method to slide empty square left"""  
     def move_left(self):
         if self.avail[1] == 0: #0 correspond a ligne et 1 a colonne
             raise Exception("cannot move left")
