@@ -17,10 +17,6 @@ class Taquin:
       self.goal = np.reshape(gseq,(self.n,self.n))
       self.avail = np.where(self.mat == 0)
       self.path = []
-      
-    """method to find if the game has reached a goal state"""  
-    def goal_bool(self):
-        return self.mat == self.goal
     
     """method to slide empty square left"""  
     def move_left(self):
@@ -30,7 +26,8 @@ class Taquin:
             self.mat[self.avail[0]][self.avail[1]] = self.mat[self.avail[0]][self.avail[1]-1] 
             self.mat[self.avail[0]][self.avail[1]-1] = 0
             self.avail[1]-=1
-            
+    
+    """method to slide empty square right"""          
     def move_right(self):
         if self.avail[1] == self.n-1:
             raise Exception("cannot move right")
@@ -39,7 +36,7 @@ class Taquin:
             self.mat[self.avail[0]][self.avail[1]+1] = 0
             self.avail[1]+=1
         
-    """method to slide up, this switches the values in the state matrix between the empty square and the one under it"""
+    """method to slide empty square down, this switches the values in the state matrix between the empty square and the one under it"""
     def move_down(self):
             if self.avail[0] == self.n-1: 
                 raise Exception("cannot move down")
@@ -47,7 +44,8 @@ class Taquin:
                 self.mat[self.avail[0]][self.avail[1]] = self.mat[self.avail[0]+1][self.avail[1]]
                 self.mat[self.avail[0]+1][self.avail[1]] = 0
                 self.avail[0]+=1
-                
+
+    """method to slide empty square up"""                  
     def move_up(self):
             if self.avail[0] == 0: 
                 raise Exception("cannot move up")
