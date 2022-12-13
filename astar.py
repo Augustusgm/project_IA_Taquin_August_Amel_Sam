@@ -25,7 +25,7 @@ class Astar :
                     #si dans la frtoniere voir si c'est plus petite valeur, on remplace ou ajoute jsp
                     self.frontier.push(node)  
             current = self.frontier.pop() 
-            if current.state == current.state.goal()
+            if current.state == current.state.goal():
                 unsolved = False
                     
         #faire un truc pour trouver le path
