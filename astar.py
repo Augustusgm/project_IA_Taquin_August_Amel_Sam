@@ -10,6 +10,7 @@ class Astar :
         self.explored = StateSet2()
         self.frontier = PriorityQueue()
         self.frontier.put((0,self.root))
+        self
         
     def solve(self):
         unsolved = True
@@ -24,7 +25,7 @@ class Astar :
                     #si dans la frtoniere voir si c'est plus petite valeur, on remplace ou ajoute jsp
                     self.frontier.push(node)  
             current = self.frontier.pop() 
-            #if current == la solution self.goal de taquin 
+            if current.state == current.state.goal()
                 unsolved = False
                     
         #faire un truc pour trouver le path
