@@ -14,10 +14,14 @@ class Taquin:
           rng = np.random.default_rng()
           rng.shuffle(seq)
       self.mat = np.reshape(seq,(self.n,self.n))
-      self.goal = np.reshape(gseq,(self.n,self.n))
       self.avail = np.where(self.mat == 0)
       self.path = []
     
+    """method which returns the goal state (this is to avoid storing unnecessary data) """
+    def goal(self):
+        seq = np.append(np.arange(1, self.n**2),[0])
+        return np.reshape(seq,(self.n,self.n))
+        
     """method to slide empty square left"""  
     def move_left(self):
         if self.avail[1] == 0: #0 correspond a ligne et 1 a colonne
