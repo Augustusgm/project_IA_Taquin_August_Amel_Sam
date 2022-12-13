@@ -1,25 +1,26 @@
 import taquin
 import StateSet2 #creer size add
-import PriorityQueueState #creer size contains get
+from queue import PriorityQueue
 import SearchNode # creer expand 
 
 class Astar :
     def __init__(self, root , explored, frontier):
-        self.root = taquin.avail()
+        self.root = root
         self.explored = StateSet2()
-        self.frontier = PriorityQueueState()
-        self.frontier.push(self.root)
+        self.frontier = PriorityQueue()
+        self.frontier.put((0,self.root))
         
     def solve(self):
-        current = self.frontier.pop()
-        while:
+        unsolved = True
+        current = self.frontier.get()
+        while unsolved:
             print("taille frontiere" + self.frontier.size() + "taille extended" + self.explored.size())
             listSucc = current.expand()
             self.explored.add(current)
             i = 0
-            for i<listSucc.size():
+            while i < listSucc.size():
                 i= i +1
                 node = listSucc.get(i)
-                if (!self.frontier.contains(node)):
+                if node not in self.frontier:
                     self.frontier.push(node)
         #faire un truc pour trouver le path
