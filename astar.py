@@ -1,27 +1,25 @@
 import taquin
-import StateSet2 #faire une hash map plutot peut etre
 from queue import PriorityQueue
-import SearchNode # creer expand , voir pour heuristic, successor, nbr action
+from searchnode import SearchNode # creer expand , voir pour heuristic, successor, nbr action
 
 
 class Astar :
     def __init__(self, root , explored, frontier):
-        self.root = SearchNode()
-        self.explored = StateSet2()
+        self.root = SearchNode(root,0,father = None, action =None)
+        self.explored = set()
         self.frontier = PriorityQueue()
         self.frontier.put((0,self.root))
-        self
         
     def solve(self):
         unsolved = True
         current = self.frontier.get()
         while unsolved:
-            if not(current in explored):
+            if current.state.mat not in self.explored:
                 print("taille frontiere" + self.frontier.size() + "taille extended" + self.explored.size())
                 listSucc = current.expand()
-                self.explored.add(current)
+                self.explored.add(current.state.mat)
                 for i in range(len(listSucc)):
-                    node = listSucc.get(i) #avec une priority queue get donne celui avec le cost plus petit
+                    node = listSucc[i] #avec une priority queue get donne celui avec le cost plus petit
                     #si dans la frtoniere voir si c'est plus petite valeur, on remplace ou ajoute jsp
                     self.frontier.push(node)  
             current = self.frontier.pop() 
