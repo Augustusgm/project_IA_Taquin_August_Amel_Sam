@@ -22,6 +22,13 @@ class Taquin:
         seq = np.append(np.arange(1, self.n**2),[0])
         return np.reshape(seq,(self.n,self.n))
         
+    def clone(self):
+        newTaq = Taquin(self.game_number,False)
+        newTaq.mat = self.mat
+        newTaq.avail = self.avail
+        newTaq.path = self.path
+        return newTaq
+    
     """method to slide empty square left"""  
     def move_left(self):
         if self.avail[1] == 0: #0 correspond a ligne et 1 a colonne
