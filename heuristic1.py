@@ -1,4 +1,4 @@
-import taquin from Taquin
+from taquin import Taquin
 
 class Heuristic1:
     
@@ -6,8 +6,8 @@ class Heuristic1:
         self.value = 0
     
     def value(self, taquin : Taquin):
-        for i in range n:
-            for j in range n:
+        for i in range(taquin.n):
+            for j in range(taquin.n):
                 cur = self.mat[i][j]
                 if cur != taquin.avail: #prend pas en compte la case avail mais jsp si dois compter 
                     official = divmod(cur,taquin.n)

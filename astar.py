@@ -1,15 +1,15 @@
-import taquin
+from taquin import Taquin, GameError
 from priorityQueue import PrQueue
 from collections import deque
 from searchnode import SearchNode # creer expand , voir pour heuristic, successor, nbr action
 
 
 class Astar :
-    def __init__(self, root , explored, frontier):
+    def __init__(self, root : Taquin):
         self.root = SearchNode(root,0,father = None, action =None)
         self.explored = set()
         self.frontier = PrQueue()
-        self.frontier.put((0,self.root))
+        self.frontier.put(self.root)
         
     def solve(self):
         current = self.frontier.get()
@@ -20,8 +20,7 @@ class Astar :
                 self.explored.add(current.state.mat)
                 for i in range(len(listSucc)):
                     node = listSucc[i]
-                    if node.state.mat not in self.frontier or self.frontier[node.state.mat]>node.value:
-                        self.frontier.push(node) 
+                    self.frontier.put(node) 
             if self.frontier.empty():
                 raise GameError(Exception("game has no solution"))
             current = self.frontier.get()
@@ -31,5 +30,4 @@ class Astar :
             current = current.father
         return solution
 
-class GameError(Exception):
-    pass
+

@@ -75,5 +75,6 @@ class Taquin:
                     print(col, end="\t")
             print()
             
-taq = Taquin(8, True)
-taq.showmat()
+
+class GameError(Exception):
+    pass

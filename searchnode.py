@@ -3,13 +3,13 @@ from heuristic1 import Heuristic1
 from heuristic2 import Heuristic2
 class SearchNode:
     
-    def __init__(self,taquin : Taquin,itera : int,father,action, h : Heuristic1):
+    def __init__(self,taquin : Taquin,itera : int,father,action, h = Heuristic1()):
         self.nbrAction =itera
         self.father = father
         self.action= action
         self.state = taquin #moveleft ..
         self.actionFather = action
-        self.value = heuristic.value(self.state) + self.nbrAction
+        self.value = h.value(self.state) + self.nbrAction
         
     def expand(self):
         succ = []
