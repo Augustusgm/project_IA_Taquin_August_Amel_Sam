@@ -13,8 +13,8 @@ class Heuristic1:
                     official = divmod(cur,taquin.n)
                     official[1]-=1
                     if (i!=official[0]) or (j!=official[1]):
-                        value = value + 1
-        return value
+                        self.value = self.value + 1
+        return self.value
                 
                 
         
