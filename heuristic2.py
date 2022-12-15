@@ -1,4 +1,4 @@
-import taquin from Taquin
+from taquin import Taquin
 
 class Heuristic1:
     
