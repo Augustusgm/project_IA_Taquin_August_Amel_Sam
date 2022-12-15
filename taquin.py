@@ -9,7 +9,6 @@ class Taquin:
           raise ValueError('n given cannot create a game')
       self.n = int(np.sqrt(n + 1))
       seq = np.append(np.arange(1, self.n**2),[0])
-      gseq = seq
       if r:
           rng = np.random.default_rng()
           rng.shuffle(seq)

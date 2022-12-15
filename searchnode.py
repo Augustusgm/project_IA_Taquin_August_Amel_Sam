@@ -5,6 +5,7 @@ class SearchNode:
     
     def __init__(self,taquin : Taquin,itera : int,father,action, h = Heuristic1()):
         self.nbrAction =itera
+        self.h = h
         self.father = father
         self.action= action
         self.state = taquin #moveleft ..
@@ -25,13 +26,8 @@ class SearchNode:
                     tmp.move_down()
                 elif act[i] == 'U' :
                     tmp.move_up()
-                succ.append(SearchNode(tmp,self.nbrAction+1, self, act[i],Heuristic1 ))
+                succ.append(SearchNode(tmp, self.nbrAction+1, self, act[i], self.h ))
             except:
                 pass
         return succ
     
-    def compare_to(self ,s):
-        value = self.nbrActions+self.value-s.nbrActions-s.value
-        if(value > 0.0001 or value < -0.0001):
-            return value
-        return self.identifiant - s.identifiant
