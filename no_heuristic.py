@@ -6,5 +6,4 @@ class No_heuristic:
         self.value = 0
     
     def value(self, taquin : Taquin):
-        self.value = 0
         return self.value
