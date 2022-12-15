@@ -1,5 +1,6 @@
 import taquin
 from queue import PriorityQueue
+from collections import deque
 from searchnode import SearchNode # creer expand , voir pour heuristic, successor, nbr action
 
 
@@ -11,9 +12,8 @@ class Astar :
         self.frontier.put((0,self.root))
         
     def solve(self):
-        unsolved = True
         current = self.frontier.get()
-        while unsolved:
+        while current.state != current.state.goal():
             if current.state.mat not in self.explored:
                 print("taille frontiere" + self.frontier.size() + "taille extended" + self.explored.size())
                 listSucc = current.expand()
@@ -22,9 +22,14 @@ class Astar :
                     node = listSucc[i] #avec une priority queue get donne celui avec le cost plus petit
                     #si dans la frtoniere voir si c'est plus petite valeur, on remplace ou ajoute jsp
                     self.frontier.push(node)  
-            current = self.frontier.pop() 
-            if current.state == current.state.goal():
-                unsolved = False
+            current = self.frontier.get()
+        solution = deque()
+        while current != self.root:
+            solution.appendleft(current.actionFather)
+            current = current.father
+        return solution
+            
+            
                     
         #faire un truc pour trouver le path
         #faire un truc pour bouger vraiment dans l'interface
