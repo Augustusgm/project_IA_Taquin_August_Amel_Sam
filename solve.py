@@ -11,9 +11,8 @@ if int(x) == 1:
     a = Astar(root = taq)
     try:
         x = a.solve()
+        print('solution: ',x)
     except GameError as e:
         print('Problem: ', e)
-    else:
-        print('solution: ',x)
     
     

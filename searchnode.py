@@ -1,4 +1,4 @@
-from taquin import Taquin
+from taquin import Taquin, InvalidMove
 from heuristic1 import Heuristic1
 from heuristic2 import Heuristic2
 class SearchNode:
@@ -7,9 +7,8 @@ class SearchNode:
         self.nbrAction =itera
         self.h = h
         self.father = father
-        self.action= action
         self.state = taquin #moveleft ..
-        self.actionFather = action
+        self.action_father = action
         self.value = h.value(self.state) + self.nbrAction
         
     def expand(self):
@@ -20,14 +19,19 @@ class SearchNode:
                 tmp = self.state.clone()
                 if act[i] == 'R' :
                     tmp.move_right()
-                elif act[i] == 'L' :
+                if act[i] == 'L' :
                     tmp.move_left()
-                elif act[i] == 'D' :
+                if act[i] == 'D' :
                     tmp.move_down()
-                elif act[i] == 'U' :
+                if act[i] == 'U' :
                     tmp.move_up()
-                succ.append(SearchNode(tmp, self.nbrAction+1, self, act[i], self.h ))
-            except:
+                succ.append(SearchNode(taquin = tmp, itera = self.nbrAction+1, father = self, action = act[i], h = self.h ))
+            except InvalidMove:
                 pass
         return succ
+    
+    def tobytes(self):
+        return self.state.tobytes()
+    
+
     

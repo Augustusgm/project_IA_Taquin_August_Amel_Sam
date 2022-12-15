@@ -13,20 +13,22 @@ class Astar :
         
     def solve(self):
         current = self.frontier.get()
-        while current.state != current.state.goal():
-            if current.state.mat not in self.explored:
-                print("taille frontiere" + self.frontier.size() + "taille extended" + self.explored.size())
+        while not current.state.isGoal():
+            if current.tobytes() not in self.explored:
+                print("taille frontiere ", self.frontier.size(), " taille extended ", len(self.explored))
                 listSucc = current.expand()
-                self.explored.add(current.state.mat)
-                for i in range(len(listSucc)):
-                    node = listSucc[i]
+                for i in listSucc:
+                    i.state.showmat()
+                    print("\n",i.action_father,"\n")
+                self.explored.add(current.tobytes())
+                for node in listSucc:
                     self.frontier.put(node) 
             if self.frontier.empty():
                 raise GameError(Exception("game has no solution"))
             current = self.frontier.get()
         solution = deque()
         while current != self.root:
-            solution.appendleft(current.actionFather)
+            solution.appendleft(current.action_father)
             current = current.father
         return solution
 

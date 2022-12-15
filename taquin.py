@@ -13,11 +13,12 @@ class Taquin:
           rng = np.random.default_rng()
           rng.shuffle(seq)
       self.mat = np.reshape(seq,(self.n,self.n))
-      self.avail = list(np.argwhere(self.mat == 0)[0])
-      self.path = []
+      self.avail = [self.n-1,self.n-1]
+      if r:
+          self.avail = list(np.argwhere(self.mat == 0)[0])
     
-    """method which returns the goal state (this is to avoid storing unnecessary data) """
     def goal(self):
+        """method which returns the goal state (this is to avoid storing unnecessary data) """
         seq = np.append(np.arange(1, self.n**2),[0])
         return np.reshape(seq,(self.n,self.n))
         
@@ -25,13 +26,12 @@ class Taquin:
         newTaq = Taquin(self.game_number,False)
         newTaq.mat = self.mat
         newTaq.avail = self.avail
-        newTaq.path = self.path
         return newTaq
     
     """method to slide empty square left"""  
     def move_left(self):
         if self.avail[1] == 0: #0 correspond a ligne et 1 a colonne
-            raise Exception("cannot move left")
+            raise InvalidMove(Exception("cannot move left"))
         else: 
             self.mat[self.avail[0]][self.avail[1]] = self.mat[self.avail[0]][self.avail[1]-1] 
             self.mat[self.avail[0]][self.avail[1]-1] = 0
@@ -40,8 +40,9 @@ class Taquin:
     """method to slide empty square right"""          
     def move_right(self):
         if self.avail[1] == self.n-1:
-            raise Exception("cannot move right")
+            raise InvalidMove(Exception("cannot move right"))
         else: 
+            print(self.mat[self.avail[0]][self.avail[1]+1])
             self.mat[self.avail[0]][self.avail[1]] = self.mat[self.avail[0]][self.avail[1]+1] 
             self.mat[self.avail[0]][self.avail[1]+1] = 0
             self.avail[1]+=1
@@ -49,7 +50,7 @@ class Taquin:
     """method to slide empty square down, this switches the values in the state matrix between the empty square and the one under it"""
     def move_down(self):
             if self.avail[0] == self.n-1: 
-                raise Exception("cannot move down")
+                raise InvalidMove(Exception("cannot move down"))
             else: 
                 self.mat[self.avail[0]][self.avail[1]] = self.mat[self.avail[0]+1][self.avail[1]]
                 self.mat[self.avail[0]+1][self.avail[1]] = 0
@@ -58,7 +59,7 @@ class Taquin:
     """method to slide empty square up"""                  
     def move_up(self):
             if self.avail[0] == 0: 
-                raise Exception("cannot move up")
+                raise InvalidMove(Exception("cannot move up"))
             else: 
                 self.mat[self.avail[0]][self.avail[1]] = self.mat[self.avail[0]-1][self.avail[1]] 
                 self.mat[self.avail[0]-1][self.avail[1]] = 0
@@ -74,6 +75,15 @@ class Taquin:
                     print(col, end="\t")
             print()
             
+    def tobytes(self):
+        return self.mat.tobytes()
+    
+    def isGoal(self):
+        return np.all(self.mat == self.goal())
+            
 
 class GameError(Exception):
+    pass
+
+class InvalidMove(Exception):
     pass
