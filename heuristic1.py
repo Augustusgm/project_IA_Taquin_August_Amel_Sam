@@ -9,7 +9,7 @@ class Heuristic1:
         valeur = self.valeur
         for i in range(taquin.n):
             for j in range(taquin.n):
-                cur = self.mat[i][j]
+                cur = taquin.mat[i][j]
                 if cur != taquin.avail: #prend pas en compte la case avail mais jsp si dois compter 
                     official = divmod(cur,taquin.n)
                     official[1]-=1

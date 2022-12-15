@@ -1,7 +1,7 @@
 import taquin
 from priorityQueue import PrQueue
 from collections import deque
-from searchnode import SearchNode # creer expand , voir pour heuristic, successor, nbr action
+from searchnode import SearchNode
 from no_heuristic import No_heuristic
 
 class UCS:
