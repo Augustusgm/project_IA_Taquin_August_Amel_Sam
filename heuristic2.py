@@ -1,6 +1,6 @@
 from taquin import Taquin
 
-class Heuristic1:
+class Heuristic2:
     
     def __init__(self):
         self.value = 0
