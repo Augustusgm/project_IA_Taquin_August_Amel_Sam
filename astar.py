@@ -1,5 +1,5 @@
 import taquin
-from queue import PriorityQueue
+from priorityQueue import PrQueue
 from collections import deque
 from searchnode import SearchNode # creer expand , voir pour heuristic, successor, nbr action
 
@@ -8,7 +8,7 @@ class Astar :
     def __init__(self, root , explored, frontier):
         self.root = SearchNode(root,0,father = None, action =None)
         self.explored = set()
-        self.frontier = PriorityQueue()
+        self.frontier = PrQueue()
         self.frontier.put((0,self.root))
         
     def solve(self):
@@ -19,17 +19,17 @@ class Astar :
                 listSucc = current.expand()
                 self.explored.add(current.state.mat)
                 for i in range(len(listSucc)):
-                    node = listSucc[i] #avec une priority queue get donne celui avec le cost plus petit
-                    #si dans la frtoniere voir si c'est plus petite valeur, on remplace ou ajoute jsp
-                    self.frontier.push(node)  
+                    node = listSucc[i]
+                    if node.state.mat not in self.frontier or self.frontier[node.state.mat]>node.value:
+                        self.frontier.push(node) 
+            if self.frontier.empty():
+                raise GameError(Exception("game has no solution"))
             current = self.frontier.get()
         solution = deque()
         while current != self.root:
             solution.appendleft(current.actionFather)
             current = current.father
         return solution
-            
-            
-                    
-        #faire un truc pour trouver le path
-        #faire un truc pour bouger vraiment dans l'interface
+
+class GameError(Exception):
+    pass
