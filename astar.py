@@ -1,5 +1,5 @@
 from taquin import Taquin, GameError
-from priorityQueue import PrQueue
+from prQueue import PrQueue
 from collections import deque
 from searchnode import SearchNode # creer expand , voir pour heuristic, successor, nbr action
 

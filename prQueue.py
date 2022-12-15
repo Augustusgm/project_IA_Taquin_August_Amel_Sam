@@ -3,7 +3,7 @@ from searchnode import SearchNode
 
 class PrQueue:
     
-    def __init__():
+    def __init__(self):
         self._queue = heapdict()
         self._dict = {}
         

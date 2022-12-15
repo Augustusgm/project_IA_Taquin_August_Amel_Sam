@@ -8,7 +8,7 @@ taq = Taquin(8, True)
 taq.showmat()
 
 if int(x) == 1:
-    a = Astar(taq)
+    a = Astar(root = taq)
     try:
         x = a.solve()
     except GameError as e:

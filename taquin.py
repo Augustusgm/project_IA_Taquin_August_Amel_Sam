@@ -13,7 +13,7 @@ class Taquin:
           rng = np.random.default_rng()
           rng.shuffle(seq)
       self.mat = np.reshape(seq,(self.n,self.n))
-      self.avail = np.where(self.mat == 0)
+      self.avail = list(np.argwhere(self.mat == 0)[0])
       self.path = []
     
     """method which returns the goal state (this is to avoid storing unnecessary data) """
