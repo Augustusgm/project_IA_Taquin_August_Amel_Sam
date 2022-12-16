@@ -4,7 +4,7 @@ from astar import Astar
 
 #x = prompt("1: astar")
 x = 1
-taq = Taquin(8, True)
+taq = Taquin(15, True, solvable = 1000)
 taq.showmat()
 
 if int(x) == 1:
