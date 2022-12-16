@@ -1,15 +1,18 @@
 from taquin import Taquin
 from heuristic1 import Heuristic1
 from heuristic2 import Heuristic2
+import numpy as np
 class SearchNode:
     
-    def __init__(self,taquin : Taquin,itera : int,father,action, h = Heuristic1()):
-        self.nbrAction =itera
-        self.h = h
-        self.father = father
-        self.state = taquin #moveleft ..
+    def __init__(self,taquin : Taquin,father ,action, h = Heuristic2()):
+        self.state = taquin
         self.action_father = action
-        self.value = h.value(self.state) + self.nbrAction
+        self.path = []
+        self.h = h
+        if father is not None:
+            self.path= father.path.copy()
+            self.path.append(action)
+        self.value = h.value(self.state) + len(self.path)
         
     def expand(self):
         succ = []
@@ -25,7 +28,7 @@ class SearchNode:
                     tmp.move_down()
                 if act[i] == 'U' :
                     tmp.move_up()
-                succ.append(SearchNode(taquin = tmp, itera = self.nbrAction+1, father = self, action = act[i], h = self.h ))
+                succ.append(SearchNode(taquin = tmp, father = self, action = act[i], h = self.h ))
             except AssertionError:
                 pass
         return succ
