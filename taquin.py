@@ -1,4 +1,5 @@
 import numpy as np
+import copy
 
 class Taquin:
     'this class contains the game, of size n, in the form of a matrice. n is the size of the game, r = True or False generates a shuffled or ordered version of the game'
@@ -24,46 +25,38 @@ class Taquin:
         
     def clone(self):
         newTaq = Taquin(self.game_number,False)
-        newTaq.mat = self.mat
-        newTaq.avail = self.avail
+        #newTaq.mat = copy.deepcopy(self.mat)
+        newTaq.mat = self.mat.copy()
+        newTaq.avail = self.avail.copy()
         return newTaq
     
     """method to slide empty square left"""  
     def move_left(self):
-        if self.avail[1] == 0: #0 correspond a ligne et 1 a colonne
-            raise InvalidMove(Exception("cannot move left"))
-        else: 
-            self.mat[self.avail[0]][self.avail[1]] = self.mat[self.avail[0]][self.avail[1]-1] 
-            self.mat[self.avail[0]][self.avail[1]-1] = 0
-            self.avail[1]-=1
+        assert self.avail[1] != 0, "cannot move left"
+        self.mat[self.avail[0]][self.avail[1]] = self.mat[self.avail[0]][self.avail[1]-1] 
+        self.mat[self.avail[0]][self.avail[1]-1] = 0
+        self.avail[1]-=1
     
     """method to slide empty square right"""          
     def move_right(self):
-        if self.avail[1] == self.n-1:
-            raise InvalidMove(Exception("cannot move right"))
-        else: 
-            print(self.mat[self.avail[0]][self.avail[1]+1])
-            self.mat[self.avail[0]][self.avail[1]] = self.mat[self.avail[0]][self.avail[1]+1] 
-            self.mat[self.avail[0]][self.avail[1]+1] = 0
-            self.avail[1]+=1
+        assert self.avail[1] != self.n-1, "cannot move right"
+        self.mat[self.avail[0]][self.avail[1]] = self.mat[self.avail[0]][self.avail[1]+1] 
+        self.mat[self.avail[0]][self.avail[1]+1] = 0
+        self.avail[1]+=1
         
     """method to slide empty square down, this switches the values in the state matrix between the empty square and the one under it"""
     def move_down(self):
-            if self.avail[0] == self.n-1: 
-                raise InvalidMove(Exception("cannot move down"))
-            else: 
-                self.mat[self.avail[0]][self.avail[1]] = self.mat[self.avail[0]+1][self.avail[1]]
-                self.mat[self.avail[0]+1][self.avail[1]] = 0
-                self.avail[0]+=1
+            assert self.avail[0] != self.n-1, "cannot move down"
+            self.mat[self.avail[0]][self.avail[1]] = self.mat[self.avail[0]+1][self.avail[1]]
+            self.mat[self.avail[0]+1][self.avail[1]] = 0
+            self.avail[0]+=1
 
     """method to slide empty square up"""                  
     def move_up(self):
-            if self.avail[0] == 0: 
-                raise InvalidMove(Exception("cannot move up"))
-            else: 
-                self.mat[self.avail[0]][self.avail[1]] = self.mat[self.avail[0]-1][self.avail[1]] 
-                self.mat[self.avail[0]-1][self.avail[1]] = 0
-                self.avail[0]-=1
+            assert self.avail[0] != 0, "cannot move up"
+            self.mat[self.avail[0]][self.avail[1]] = self.mat[self.avail[0]-1][self.avail[1]] 
+            self.mat[self.avail[0]-1][self.avail[1]] = 0
+            self.avail[0]-=1
                 
     def showmat(self):
         # Afficher la grille du taquin dans la console.
@@ -83,7 +76,4 @@ class Taquin:
             
 
 class GameError(Exception):
-    pass
-
-class InvalidMove(Exception):
     pass

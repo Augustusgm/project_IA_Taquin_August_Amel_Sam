@@ -13,13 +13,13 @@ class Astar :
         
     def solve(self):
         current = self.frontier.get()
+        i = 0
         while not current.state.isGoal():
             if current.tobytes() not in self.explored:
-                print("taille frontiere ", self.frontier.size(), " taille extended ", len(self.explored))
+                i+=1
+                if i%1000 == 0:
+                    print("taille frontiere ", self.frontier.size(), " taille extended ", len(self.explored))
                 listSucc = current.expand()
-                for i in listSucc:
-                    i.state.showmat()
-                    print("\n",i.action_father,"\n")
                 self.explored.add(current.tobytes())
                 for node in listSucc:
                     self.frontier.put(node) 

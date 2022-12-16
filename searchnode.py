@@ -1,4 +1,4 @@
-from taquin import Taquin, InvalidMove
+from taquin import Taquin
 from heuristic1 import Heuristic1
 from heuristic2 import Heuristic2
 class SearchNode:
@@ -26,7 +26,7 @@ class SearchNode:
                 if act[i] == 'U' :
                     tmp.move_up()
                 succ.append(SearchNode(taquin = tmp, itera = self.nbrAction+1, father = self, action = act[i], h = self.h ))
-            except InvalidMove:
+            except AssertionError:
                 pass
         return succ
     
