@@ -1,12 +1,12 @@
 from taquin import Taquin, GameError
 from prQueue import PrQueue
 from collections import deque
-from searchnode import SearchNode # creer expand , voir pour heuristic, successor, nbr action
+from searchnode import SearchNode 
 
 
 class Astar :
-    def __init__(self, root : Taquin):
-        self.root = SearchNode(root,0,father = None, action =None)
+    def __init__(self, root : Taquin,heuristic):
+        self.root = SearchNode(root,0,father = None, action =None, h = heuristic)
         self.explored = set()
         self.frontier = PrQueue()
         self.frontier.put(self.root)
