@@ -3,8 +3,8 @@ from heuristic1 import Heuristic1
 from heuristic2 import Heuristic2
 from no_heuristic import No_heuristic
 import numpy as np
+
 class SearchNode:
-    
     def __init__(self,taquin : Taquin,father ,action, h = Heuristic2()):
         self.state = taquin
         self.action_father = action
@@ -13,7 +13,7 @@ class SearchNode:
         if father is not None:
             self.path= father.path.copy()
             self.path.append(action)
-        self.value = h.value(self.state) + len(self.path)
+        self.val = h.value(self.state) + len(self.path)
         
     def expand(self):
         succ = []
@@ -34,8 +34,8 @@ class SearchNode:
                 pass
         return succ
     
-    def tobytes(self):
-        return self.state.tobytes()
+    def to_char(self):
+        return self.state.to_char()
     
 
     

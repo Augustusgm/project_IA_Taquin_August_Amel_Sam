@@ -43,7 +43,6 @@ class Taquin:
                 pass
                 
             
-            
         
     def clone(self):
         newTaq = Taquin(self.game_number,False)
@@ -90,11 +89,15 @@ class Taquin:
                     print(col, end="\t")
             print()
             
-    def tobytes(self):
-        return self.mat.tobytes()
+    def to_char(self):
+        char = ''
+        for ligne in self.mat:
+            for col in ligne:
+                char+=str(col)
+        return int(char)
     
-    def isGoal(self):
-        return np.all(self.mat == self.goal())
+    def isGoal(self, goal):
+        return np.all(self.mat == goal)
             
 
 class GameError(Exception):
