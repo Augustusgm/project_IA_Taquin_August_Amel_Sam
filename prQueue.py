@@ -9,9 +9,9 @@ class PrQueue:
         
     def put(self, node : SearchNode):
         node_key = node.tobytes()
-        if (node_key not in self._dict) or (self._queue[node_key]>node.value):
+        if (node_key not in self._dict) or (self._queue[node_key]>node.val):
             self._dict[node_key] = node
-            self._queue[node_key] = node.value
+            self._queue[node_key] = node.val
         
     def get(self):
         return self._dict.pop(self._queue.popitem()[0])

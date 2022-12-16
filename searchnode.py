@@ -1,6 +1,7 @@
 from taquin import Taquin
 from heuristic1 import Heuristic1
 from heuristic2 import Heuristic2
+from no_heuristic import No_heuristic
 import numpy as np
 class SearchNode:
     

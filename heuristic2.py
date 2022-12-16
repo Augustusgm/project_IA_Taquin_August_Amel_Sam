@@ -3,10 +3,10 @@ from taquin import Taquin
 class Heuristic2:
     
     def __init__(self):
-        self.value = 0
+        self.valeur = 0
     
     def value(self, taquin : Taquin):
-        value = self.value
+        value = self.valeur
         for i in range(taquin.n):
             for j in range(taquin.n):
                 cur = taquin.mat[i][j]
