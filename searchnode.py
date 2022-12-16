@@ -10,7 +10,7 @@ class SearchNode:
         self.father = father
         self.state = taquin #moveleft ..
         self.action_father = action
-        self.value = h.value(self.state) + self.nbrAction
+        self.val = h.value(self.state) + self.nbrAction
         
     def expand(self):
         succ = []
