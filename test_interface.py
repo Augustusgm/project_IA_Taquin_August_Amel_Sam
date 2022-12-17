@@ -6,7 +6,6 @@ from taquin import Taquin
 from astar import Astar 
 from heuristics import heuristic2, heuristic1, no_heuristic
 
-#marche pas si on a deja lancé et eu une reponse solution ou pas 
 
 def clic(event):
     global i_empty, j_empty, bravo
@@ -47,9 +46,9 @@ def mix():
     taquin.mix_up(300) 
     taquin.avail=list(np.argwhere(taquin.mat == 0)[0])
     i_empty, j_empty= taquin.avail
-    items=[None for i in range(taquin.n()+1 **2 )]
-    for i in range(taquin.n()+1):
-        for j in range(taquin.n()+1):
+    items=[None for i in range(taquin.n() **2 )]
+    for i in range(taquin.n()):
+        for j in range(taquin.n()):
             x, y=100*j, 100*i
             A, B, C=(x, y), (x+100, y+100), (x+50, y+50)
             rect=cnv.create_rectangle(A, B, fill="mediumturquoise")
@@ -64,7 +63,7 @@ def mix():
     
 def choisir_taquin():
     global taquin 
-    num = int(taille.get()) -1
+    num = int(taille.get())
     taquin = Taquin(num,False,100)
     mix()
     
@@ -81,7 +80,7 @@ FONT=('Ubuntu', 27, 'bold')
 master=Tk()
 master.title('Taquin')
 
-libelle = Label(master, text='Entrez la taille de votre taquin: 9, 16, 25 ...')
+libelle = Label(master, text='Entrez la taille de votre taquin: 3, 4, 5 ...')
 libelle.pack()
 
 taille = Entry(master)
