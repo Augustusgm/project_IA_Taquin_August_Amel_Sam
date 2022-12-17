@@ -12,6 +12,6 @@ class Heuristic2:
                 cur = taquin.mat[i][j]
                 if cur != 0: #prend pas en compte la case avail mais jsp si dois compter 
                     official = divmod(cur,taquin.n)
-                    value = value + abs(i - official[0]) + abs(j - official[1]+1)
+                    value = abs(i - official[0]) + abs(j - official[1]+1)
         return value
                 

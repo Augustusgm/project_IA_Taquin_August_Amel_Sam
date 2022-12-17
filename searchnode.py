@@ -5,15 +5,21 @@ from no_heuristic import No_heuristic
 import numpy as np
 
 class SearchNode:
-    def __init__(self,taquin : Taquin,father ,action, h = Heuristic2()):
+    def __init__(self,taquin : Taquin,father ,action, h = Heuristic2(), setValue = True):
         self.state = taquin
-        self.action_father = action
         self.path = []
         self.h = h
         if father is not None:
             self.path= father.path.copy()
             self.path.append(action)
-        self.val = h.value(self.state) + len(self.path)
+        self.val = 0
+        if setValue:
+            self.val = h.value(self.state) + len(self.path)
+            
+        
+    def from_path(self, path):
+        self.path = path.copy()
+        self.val = self.h.value(self.state) + len(self.path)
         
     def expand(self):
         succ = []
@@ -34,8 +40,8 @@ class SearchNode:
                 pass
         return succ
     
-    def to_char(self):
-        return self.state.to_char()
+    def tobytes(self):
+        return self.state.tobytes()
     
 
     

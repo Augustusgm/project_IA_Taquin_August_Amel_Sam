@@ -7,7 +7,7 @@ from no_heuristic import No_heuristic
 import time
 #x = prompt("1: astar")
 x = 1
-taq = Taquin(8, True, solvable = 1000)
+taq = Taquin(15, True, solvable = 100)
 taq.showmat()
 tic = time.perf_counter()
 

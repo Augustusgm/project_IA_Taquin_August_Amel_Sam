@@ -42,13 +42,26 @@ class Taquin:
             except AssertionError:
                 pass
                 
-            
-        
+   
     def clone(self):
         newTaq = Taquin(self.game_number,False)
-        #newTaq.mat = copy.deepcopy(self.mat)
         newTaq.mat = self.mat.copy()
         newTaq.avail = self.avail.copy()
+        return newTaq
+    
+    def copy_move_path(self , path):
+        newTaq = Taquin(self.game_number,False)
+        newTaq.mat = self.mat.copy()
+        newTaq.avail = self.avail.copy()
+        for i in path:
+            if i == 'R' :
+                newTaq.move_right()
+            if i == 'L' :
+                newTaq.move_left()
+            if i == 'D' :
+                newTaq.move_down()
+            if i == 'U' :
+                newTaq.move_up()
         return newTaq
     
     """method to slide empty square left"""  
@@ -89,12 +102,8 @@ class Taquin:
                     print(col, end="\t")
             print()
             
-    def to_char(self):
-        char = ''
-        for ligne in self.mat:
-            for col in ligne:
-                char+=str(col)
-        return int(char)
+    def tobytes(self):
+        return self.mat.tobytes()
     
     def isGoal(self, goal):
         return np.all(self.mat == goal)
