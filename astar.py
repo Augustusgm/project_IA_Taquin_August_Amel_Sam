@@ -4,6 +4,8 @@ from collections import deque
 from searchnode import SearchNode 
 from memory_profiler import profile
 import sys
+import time
+
 
 import sys
 from types import ModuleType, FunctionType
@@ -34,12 +36,14 @@ def getsize(obj):
 class Astar :
     def __init__(self, root : Taquin,heuristic):
         self.root = SearchNode(root,father = None, action =None, h = heuristic)
+        self.h = heuristic
         self.explored = set()
-        self.frontier = PrQueue(root , heuristic)
+        self.frontier = PrQueue()
         #self.frontier.put(self.root)
         self.goal = self.root.state.goal()
      
     def solve(self):
+        tic = time.perf_counter()
         #current = self.frontier.get()
         current = self.root
         i = -1
@@ -50,10 +54,10 @@ class Astar :
                 print('taille explored', getsize(self.explored))
                 print('taille frontier', getsize(self.frontier))
                 current.state.showmat()
-            listSucc = []
-            listSucc = current.expand()
+                toc = time.perf_counter()
+                print(f"solving with astar took {toc - tic:0.4f} seconds")
             self.explored.add(current.tobytes())
-            for node in listSucc:
+            for node in current.expand(self.h):
                 if node.tobytes() not in self.explored:
                     self.frontier.put(node) 
             if self.frontier.empty():

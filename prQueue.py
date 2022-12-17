@@ -33,11 +33,11 @@ def getsize(obj):
 import sys
 class PrQueue:
     
-    def __init__(self, root: Taquin, h = heuristic2):
+    def __init__(self):#, root: Taquin, h = heuristic2):
         self._queue = heapdict()
         self._dict = {}
-        self.root = root
-        self.h = h
+        #self.root = root
+        #self.h = h
         self.i = 1
     
     
@@ -53,8 +53,8 @@ class PrQueue:
         if self.i%1000000 ==0:
             print('taille dict', getsize(self._dict))
             print('taille queue', getsize(self._queue))
-        #path = self._dict.pop(self._queue.popitem()[0])
-        #s = SearchNode(taquin = self.root.copy_move_path(path), father = None, action= None, h = self.h, setValue=False)
+       # path = self._dict.pop(self._queue.popitem()[0])
+       # s = SearchNode(taquin = self.root.copy_move_path(path), father = None, action= None, h = self.h, setValue=False)
         #s.from_path(path)
         return self._dict.pop(self._queue.popitem()[0])#s
     
