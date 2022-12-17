@@ -4,9 +4,7 @@ import numpy as np
 import random
 from taquin import Taquin
 from astar import Astar 
-from heuristic2 import Heuristic2
-from heuristic1 import Heuristic1
-
+from heuristics import heuristic2, heuristic1, no_heuristic
 
 #marche pas si on a deja lancé et eu une reponse solution ou pas 
 
@@ -71,12 +69,11 @@ def choisir_taquin():
     mix()
     
 def choix_astar_h2(): #se servir de la classe solve dans le futur 
-    x=Astar(root = taquin, heuristic = Heuristic2()).solve()
-    print("resultat",x)
+    x=Astar(root = taquin, heuristic = heuristic2()).solve()
+    Texte.set("Résultat: " + str(x))
 
 def choix_astar_h1(): #se servir de la classe solve dans le futur 
-    x=Astar(root = taquin, heuristic = Heuristic1()).solve()
-    print("resultat",x)
+    x=Astar(root = taquin, heuristic = heuristic1()).solve()
     Texte.set("Résultat: " + str(x))
 
    
