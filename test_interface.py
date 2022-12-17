@@ -47,9 +47,9 @@ def mix():
     taquin.mix_up(300) 
     taquin.avail=list(np.argwhere(taquin.mat == 0)[0])
     i_empty, j_empty= taquin.avail
-    items=[None for i in range(taquin.n **2 )]
-    for i in range(taquin.n):
-        for j in range(taquin.n):
+    items=[None for i in range(taquin.n()+1 **2 )]
+    for i in range(taquin.n()+1):
+        for j in range(taquin.n()+1):
             x, y=100*j, 100*i
             A, B, C=(x, y), (x+100, y+100), (x+50, y+50)
             rect=cnv.create_rectangle(A, B, fill="mediumturquoise")
@@ -69,11 +69,11 @@ def choisir_taquin():
     mix()
     
 def choix_astar_h2(): #se servir de la classe solve dans le futur 
-    x=Astar(root = taquin, heuristic = heuristic2()).solve()
+    x=Astar(root = taquin, heuristic = heuristic2).solve()
     Texte.set("Résultat: " + str(x))
 
 def choix_astar_h1(): #se servir de la classe solve dans le futur 
-    x=Astar(root = taquin, heuristic = heuristic1()).solve()
+    x=Astar(root = taquin, heuristic = heuristic1).solve()
     Texte.set("Résultat: " + str(x))
 
    
