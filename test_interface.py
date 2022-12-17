@@ -5,8 +5,10 @@ import random
 from taquin import Taquin
 from astar import Astar 
 from heuristic2 import Heuristic2
+from heuristic1 import Heuristic1
 
 
+#marche pas si on a deja lancé et eu une reponse solution ou pas 
 
 def clic(event):
     global i_empty, j_empty, bravo
@@ -33,6 +35,7 @@ def clic(event):
     taquin.mat[i][j] , taquin.mat[i_empty][j_empty] = (taquin.mat[i_empty][j_empty] , taquin.mat[i][j])
     i_empty=i
     j_empty=j
+    taquin.avail=list(np.argwhere(taquin.mat == 0)[0])
     if (taquin.mat==taquin.goal()).all():
         lbl.configure(text="Bravo !")
         bravo=True
@@ -44,10 +47,9 @@ def mix():
     cnv.delete("all")
     items=[None]
     taquin.mix_up(300) 
+    taquin.avail=list(np.argwhere(taquin.mat == 0)[0])
     i_empty, j_empty= taquin.avail
-    empty=i_empty, j_empty
     items=[None for i in range(taquin.n **2 )]
-
     for i in range(taquin.n):
         for j in range(taquin.n):
             x, y=100*j, 100*i
@@ -64,18 +66,25 @@ def mix():
     
 def choisir_taquin():
     global taquin 
-    num = int(taille.get())
-    taquin = Taquin(num-1,True)
+    num = int(taille.get()) -1
+    taquin = Taquin(num,False,100)
     mix()
     
 def choix_astar_h2(): #se servir de la classe solve dans le futur 
     x=Astar(root = taquin, heuristic = Heuristic2()).solve()
-    print('solution: ',x)
-    
+    print("resultat",x)
+
+def choix_astar_h1(): #se servir de la classe solve dans le futur 
+    x=Astar(root = taquin, heuristic = Heuristic1()).solve()
+    print("resultat",x)
+    Texte.set("Résultat: " + str(x))
+
+   
 FONT=('Ubuntu', 27, 'bold')
 master=Tk()
+master.title('Taquin')
 
-libelle = Label(master, text='Entrez la taille de votre taquin:')
+libelle = Label(master, text='Entrez la taille de votre taquin: 9, 16, 25 ...')
 libelle.pack()
 
 taille = Entry(master)
@@ -83,20 +92,23 @@ taille.pack(pady=10)
 bouton_soumission = Button(master, text='Enter', command=choisir_taquin, padx=15, pady=5)
 bouton_soumission.pack(padx=10, pady=(0, 10))
 
-taquin = Taquin(15,True)
 
-cnv=Canvas(master, width=taquin.n*100, height=taquin.n*100, bg='gray70')
+
+cnv=Canvas(master, width=800, height=700)
 cnv.pack(side='left')
 
 lbl=Label(text="      ", font=('Ubuntu', 25, 'bold'),
           justify=CENTER, width=7)
 lbl.pack(side="left")
 
+Texte = StringVar()
+LabelResultat = Label(master, textvariable = Texte , bg ="grey")
+LabelResultat.pack()
 
 btn=Button(text="Mélanger", command=mix)
 btn.pack()
 
-b1 = Button (text = "solve with Astar with h1")
+b1 = Button (text = "solve with Astar with h1", command=choix_astar_h1)
 b1.pack()
 b2 = Button (text = "solve with Astar with h2", command=choix_astar_h2)
 b2.pack()
