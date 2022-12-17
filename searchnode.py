@@ -3,7 +3,7 @@ from heuristics import heuristic2, heuristic1, no_heuristic
 import numpy as np
 
 class SearchNode:
-    def __init__(self,taquin : Taquin,father ,nb_action ,action, h = heuristic2):
+    def __init__(self,taquin : Taquin,father ,nb_action : int ,action, h = heuristic2):
         self.state = taquin
         #self.path = []
         self.father = father

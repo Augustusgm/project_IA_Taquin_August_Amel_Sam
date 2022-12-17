@@ -35,7 +35,7 @@ def getsize(obj):
     return size
 class Astar :
     def __init__(self, root : Taquin,heuristic):
-        self.root = SearchNode(root,father = None, action =None, h = heuristic)
+        self.root = SearchNode(root,father = None, action =None,nb_action = 0, h = heuristic)
         self.h = heuristic
         self.explored = set()
         self.frontier = PrQueue()
@@ -63,7 +63,10 @@ class Astar :
             if self.frontier.empty():
                 raise GameError(Exception("game has no solution"))
             current = self.frontier.get()
-        solution = current.path
+        solution = deque()
+        while current.action is not None:
+            solution.appendleft(current.action)
+            current = current.father
         return solution
 
 
