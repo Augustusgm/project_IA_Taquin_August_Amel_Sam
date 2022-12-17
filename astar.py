@@ -5,7 +5,32 @@ from searchnode import SearchNode
 from memory_profiler import profile
 import sys
 
+import sys
+from types import ModuleType, FunctionType
+from gc import get_referents
 
+# Custom objects know their class.
+# Function objects seem to know way too much, including modules.
+# Exclude modules as well.
+
+
+def getsize(obj):
+    """sum size of object & members."""
+    BLACKLIST = type, ModuleType, FunctionType
+    if isinstance(obj, BLACKLIST):
+        raise TypeError('getsize() does not take argument of type: '+ str(type(obj)))
+    seen_ids = set()
+    size = 0
+    objects = [obj]
+    while objects:
+        need_referents = []
+        for obj in objects:
+            if not isinstance(obj, BLACKLIST) and id(obj) not in seen_ids:
+                seen_ids.add(id(obj))
+                size += sys.getsizeof(obj)
+                need_referents.append(obj)
+        objects = get_referents(*need_referents)
+    return size
 class Astar :
     def __init__(self, root : Taquin,heuristic):
         self.root = SearchNode(root,father = None, action =None, h = heuristic)
@@ -13,17 +38,17 @@ class Astar :
         self.frontier = PrQueue(root , heuristic)
         #self.frontier.put(self.root)
         self.goal = self.root.state.goal()
-    
-    @profile    
+     
     def solve(self):
         #current = self.frontier.get()
         current = self.root
         i = -1
         while not current.state.isGoal(self.goal):
             i+=1
-            if i%10000 == 0:
+            if i%1000000 == 0:
                 print("taille frontiere ", self.frontier.size(), " taille extended ", len(self.explored))
-                print('taille explored', sys.getsizeof(self.explored))
+                print('taille explored', getsize(self.explored))
+                print('taille frontier', getsize(self.frontier))
                 current.state.showmat()
             listSucc = []
             listSucc = current.expand()
