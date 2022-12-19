@@ -3,18 +3,12 @@ from heuristics import heuristic2, heuristic1, no_heuristic
 import numpy as np
 
 class SearchNode:
-    def __init__(self,taquin : Taquin,father ,nb_action : int ,action, h = heuristic2):
+    def __init__(self,taquin : Taquin,father ,nb_action : int ,action : str, h = heuristic2):
         self.state = taquin
-        #self.path = []
         self.father = father
         self.action = action
         self.nb_action = nb_action
-        #if father is not None:
-        #    self.path= father.path.copy()
-        #    self.path.append(action)
-        #self.val = 0
-        #if setValue:
-        self.val = h(self.state) + self.nb_action#len(self.path)
+        self.val = h(self.state) + self.nb_action
             
         
     #def from_path(self, path):

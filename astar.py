@@ -49,7 +49,7 @@ class Astar :
         i = -1
         while not current.state.isGoal(self.goal):
             i+=1
-            if i%1000000 == 0:
+            if i%100000 == 0:
                 print("taille frontiere ", self.frontier.size(), " taille extended ", len(self.explored))
                 print('taille explored', getsize(self.explored))
                 print('taille frontier', getsize(self.frontier))

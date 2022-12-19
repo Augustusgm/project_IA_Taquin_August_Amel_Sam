@@ -46,13 +46,14 @@ class PrQueue:
         if (node_key not in self._dict) or (self._queue[node_key]>node.val):
             self._dict[node_key] = node#.path
             self._queue[node_key] = node.val
+            if self.i%10000 ==0:
+                print('taille taq', getsize(node.state))
         
         
     def get(self):
         self.i+=1
         if self.i%1000000 ==0:
             print('taille dict', getsize(self._dict))
-            print('taille queue', getsize(self._queue))
        # path = self._dict.pop(self._queue.popitem()[0])
        # s = SearchNode(taquin = self.root.copy_move_path(path), father = None, action= None, h = self.h, setValue=False)
         #s.from_path(path)

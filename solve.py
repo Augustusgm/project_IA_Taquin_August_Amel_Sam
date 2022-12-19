@@ -5,7 +5,7 @@ from heuristics import heuristic2, heuristic1, no_heuristic
 import time
 import numpy as np
 import sys
-sys.setrecursionlimit(1000000)
+
 #x = prompt("1: astar")
 x = 1
 game_number = 15
