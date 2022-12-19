@@ -48,6 +48,7 @@ taquin.mat[3][0]= 0
 taquin.mat[3][1]= 13
 taquin.mat[3][2]= 14
 taquin.mat[3][3]= 3
+taquin.avail = [3,0]
 taquin.showmat()
 
 a = Astar(root = taquin, heuristic = heuristic2)

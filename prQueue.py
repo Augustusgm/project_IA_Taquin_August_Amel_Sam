@@ -46,8 +46,6 @@ class PrQueue:
         if (node_key not in self._dict) or (self._queue[node_key]>node.val):
             self._dict[node_key] = node#.path
             self._queue[node_key] = node.val
-            if self.i%10000 ==0:
-                print('taille taq', getsize(node.state))
         
         
     def get(self):
