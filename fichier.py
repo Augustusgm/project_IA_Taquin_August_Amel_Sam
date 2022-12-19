@@ -2,16 +2,18 @@
 from taquin import Taquin
 
 with open("fichier.TXT","r") as fichier:
-    i=0
-    size = len(fichier)
-    taquin = Taquin(size,True)
-    for line in fichier :
-        size2=len(line.split(","))
-        j=0
-        for d in line.split(","):
-            data = str(d) 
-            taquin.mat[i][j]= int(data)
-            j=j+1
-        i = i+1
+    global taquin
+    size=0
+    for line in fichier : #car length marche pas
+        size=size +1
+    taquin = Taquin(size,False)
+    with open("fichier.TXT","r") as fichier2: #car deja fait un for line in fichier 
+        i=0
+        for line in fichier2 :
+            data = line.split()
+            for j in range(size):
+                taquin.mat[i][j]= int(data[j])
+            i = i+1
+
 
 taquin.showmat()
