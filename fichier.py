@@ -1,5 +1,6 @@
 
 from taquin import Taquin
+import numpy as np
 
 with open("fichier.TXT","r") as fichier:
     global taquin
@@ -14,6 +15,7 @@ with open("fichier.TXT","r") as fichier:
             for j in range(size):
                 taquin.mat[i][j]= int(data[j])
             i = i+1
+    taquin.avail=list(np.argwhere(taquin.mat == 0)[0])
 
 
 taquin.showmat()
