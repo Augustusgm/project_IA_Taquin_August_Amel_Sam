@@ -8,6 +8,7 @@ from heuristics import heuristic2, heuristic1, no_heuristic
 
 
 def clic(event):
+    """method to move the title in the puzzle """
     global i_empty, j_empty, bravo
     if bravo:
         return
@@ -39,6 +40,7 @@ def clic(event):
 
 
 def mix():
+    """method to mix the tiles in the puzzle"""
     print("appel a mix")
     global i_empty, j_empty, items, taquin, bravo
     cnv.delete("all")
@@ -61,17 +63,21 @@ def mix():
     lbl.configure(text="")
     bravo=False
     
+
 def choisir_taquin():
+    """method to have (recuperer) the size of the taquin chose by the user """
     global taquin 
     num = int(taille.get())
     taquin = Taquin(num,False,100)
     mix()
     
 def choix_astar_h2(): #se servir de la classe solve dans le futur 
+    """method to launch the algo and print the result """
     x=Astar(root = taquin, heuristic = heuristic2).solve()
     Texte.set("Résultat: " + str(x))
 
 def choix_astar_h1(): #se servir de la classe solve dans le futur 
+    """method to launch the algo and print the result """
     x=Astar(root = taquin, heuristic = heuristic1).solve()
     Texte.set("Résultat: " + str(x))
 
