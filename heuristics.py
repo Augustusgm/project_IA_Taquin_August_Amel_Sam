@@ -1,4 +1,5 @@
 from taquin import Taquin
+import numpy as np
 
 def heuristic2(taquin : Taquin):
     """gives the manhattan distance from current state to the goal. the divmod operator gives the position in which each state should be in to efficiently compute the distance"""
@@ -9,6 +10,18 @@ def heuristic2(taquin : Taquin):
             cur = taquin.mat[i][j]
             if cur != 0: #prend pas en compte la case avail mais jsp si dois compter 
                 official = divmod(cur-1,n)
+                value = value + abs(i - official[0]) + abs(j - official[1])
+    return value
+
+def heuristic2_b(taquin : Taquin, tackin_goal):
+    """gives the manhattan distance from current state to the initial game for backward search"""
+    n = taquin.n()
+    value = 0
+    for i in range(n):
+        for j in range(n):
+            cur = taquin.mat[i][j]
+            if cur != 0: #prend pas en compte la case avail mais jsp si dois compter 
+                official = list(np.argwhere(tackin_goal == cur)[0])
                 value = value + abs(i - official[0]) + abs(j - official[1])
     return value
 

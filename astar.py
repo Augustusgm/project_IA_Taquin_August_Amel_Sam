@@ -2,8 +2,6 @@ from taquin import Taquin, GameError
 from prQueue import PrQueue
 from collections import deque
 from searchnode import SearchNode 
-from memory_profiler import profile
-import sys
 import time
 
 class Astar :

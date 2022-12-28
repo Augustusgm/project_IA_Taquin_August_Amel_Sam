@@ -1,7 +1,8 @@
 from prompt_toolkit import prompt
 from taquin import Taquin, GameError
 from astar import Astar
-from heuristics import heuristic2, heuristic1, no_heuristic
+from bidirectional import Bidirectional
+from heuristics import heuristic2, heuristic1, no_heuristic, heuristic2_b
 import time
 import numpy as np
 import sys
@@ -51,7 +52,8 @@ taquin.mat[3][3]= 3
 taquin.avail = [3,0]
 taquin.showmat()
 
-a = Astar(root = taquin, heuristic = heuristic1)
+#a = Astar(root = taquin, heuristic = heuristic1)
+a = Bidirectional(root = taquin, heuristic_f = heuristic2, heuristic_b = heuristic2_b)
 x = a.solve()
 print('solution: ',x)
 #toc = time.perf_counter()
