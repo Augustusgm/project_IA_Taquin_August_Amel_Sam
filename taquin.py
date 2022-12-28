@@ -17,6 +17,7 @@ class Taquin:
               self.mix_up(solvable)
     
     def n(self):
+        """function to avoid storing useless information on the size of the game"""
         return self.mat.shape[0]
     
     def goal(self):
@@ -43,6 +44,7 @@ class Taquin:
                 
    
     def clone(self):
+        """method to copy a game configuration, it returns a new game with the same state array"""
         newTaq = Taquin(self.n(),False)
         newTaq.mat = self.mat.copy()
         newTaq.avail = self.avail.copy()
@@ -62,37 +64,38 @@ class Taquin:
             if i == 'U' :
                 newTaq.move_up()
         return newTaq"""
-    
-    """method to slide empty square left"""  
+      
     def move_left(self):
+        """method to slide empty square left"""
         assert self.avail[1] != 0, "cannot move left"
         self.mat[self.avail[0]][self.avail[1]] = self.mat[self.avail[0]][self.avail[1]-1] 
         self.mat[self.avail[0]][self.avail[1]-1] = 0
         self.avail[1]-=1
     
-    """method to slide empty square right"""          
+             
     def move_right(self):
+        """method to slide empty square right""" 
         assert self.avail[1] != self.n()-1, "cannot move right"
         self.mat[self.avail[0]][self.avail[1]] = self.mat[self.avail[0]][self.avail[1]+1] 
         self.mat[self.avail[0]][self.avail[1]+1] = 0
         self.avail[1]+=1
         
-    """method to slide empty square down, this switches the values in the state matrix between the empty square and the one under it"""
     def move_down(self):
+            """method to slide empty square down, this switches the values in the state matrix between the empty square and the one under it"""
             assert self.avail[0] != self.n()-1, "cannot move down"
             self.mat[self.avail[0]][self.avail[1]] = self.mat[self.avail[0]+1][self.avail[1]]
             self.mat[self.avail[0]+1][self.avail[1]] = 0
             self.avail[0]+=1
 
-    """method to slide empty square up"""                  
-    def move_up(self):
+    def move_up(self):    
+            """method to slide empty square up"""                  
             assert self.avail[0] != 0, "cannot move up"
             self.mat[self.avail[0]][self.avail[1]] = self.mat[self.avail[0]-1][self.avail[1]] 
             self.mat[self.avail[0]-1][self.avail[1]] = 0
             self.avail[0]-=1
                 
     def showmat(self):
-        # Afficher la grille du taquin dans la console.
+        """prints the game state in the terminal"""
         for ligne in self.mat:
             for col in ligne:
                 if col == 0:
@@ -102,9 +105,11 @@ class Taquin:
             print()
             
     def tobytes(self):
+        """returns the state of the game in byte form to have a hashable representation of a state"""
         return self.mat.tobytes()
     
     def isGoal(self, goal):
+        """method, returns boolean stating if the game has reached the goal state"""
         return np.all(self.mat == goal)
             
 

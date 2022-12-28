@@ -1,14 +1,15 @@
 from taquin import Taquin
 
 def heuristic2(taquin : Taquin):
+    """gives the manhattan distance from current state to the goal. the divmod operator gives the position in which each state should be in to efficiently compute the distance"""
     n = taquin.n()
     value = 0
     for i in range(n):
         for j in range(n):
             cur = taquin.mat[i][j]
             if cur != 0: #prend pas en compte la case avail mais jsp si dois compter 
-                official = divmod(cur,n)
-                value = value + abs(i - official[0]) + abs(j - official[1] + 1)
+                official = divmod(cur-1,n)
+                value = value + abs(i - official[0]) + abs(j - official[1])
     return value
 
 def heuristic1(taquin : Taquin):
