@@ -13,6 +13,7 @@ def heuristic2(taquin : Taquin):
     return value
 
 def heuristic1(taquin : Taquin):
+    """method which returns the value for h1 :number of displaced tiles """
     n = taquin.n()
     valeur = 0
     for i in range(n):
@@ -25,4 +26,5 @@ def heuristic1(taquin : Taquin):
     return valeur
                 
 def no_heuristic(taquin : Taquin):
-        return 0
+    """method to use uniform cost search """
+    return 0

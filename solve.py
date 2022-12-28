@@ -51,7 +51,7 @@ taquin.mat[3][3]= 3
 taquin.avail = [3,0]
 taquin.showmat()
 
-a = Astar(root = taquin, heuristic = heuristic2)
+a = Astar(root = taquin, heuristic = heuristic1)
 x = a.solve()
 print('solution: ',x)
 #toc = time.perf_counter()
