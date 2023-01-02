@@ -48,9 +48,9 @@ def mix():
     cnv.delete("all")
     items=[None]
     taquin.mix_up(300) 
-    taquin.avail=list(np.argwhere(taquin.mat == 0)[0])
+    #taquin.avail=list(np.argwhere(taquin.mat == 0)[0]) #PAS NECESSAIRE NORMALEMENT
     i_empty, j_empty= taquin.avail
-    items=[None for i in range(taquin.n() **2 )]
+    items=[None for i in range(taquin.n() **2 )]#POURQUOI LA TAPELLES PAS JUSTE AFFICHER?
     for i in range(taquin.n()):
         for j in range(taquin.n()):
             x, y=100*j, 100*i
@@ -70,7 +70,7 @@ def afficher():
     global i_empty, j_empty, items, taquin, bravo
     cnv.delete("all")
     items=[None]
-    taquin.avail=list(np.argwhere(taquin.mat == 0)[0])
+    #taquin.avail=list(np.argwhere(taquin.mat == 0)[0]) #NORMALEMENT AVAIL EST DEJA DEFINIE
     i_empty, j_empty= taquin.avail
     items=[None for i in range(taquin.n() **2 )]
     for i in range(taquin.n()):
@@ -101,7 +101,7 @@ def choix_astar_h2(): #se servir de la classe solve dans le futur
     x=Astar(root = taquin, heuristic = heuristic2).solve()
     toc = time.perf_counter()
     z = toc -tic
-    Texte.set("Résultat: " + str(x) + " \n Found solution in " + str(z))
+    Texte.set("Résultat: " + str(x) + "\n size " + str(len(x)) + " \n Found solution in " + str(z))
 
 def choix_astar_h1(): #se servir de la classe solve dans le futur 
     """method to launch astar with h1 and print the result """
@@ -110,7 +110,7 @@ def choix_astar_h1(): #se servir de la classe solve dans le futur
     Texte.set("Résultat: " + str(x))
     toc = time.perf_counter()
     z = toc -tic
-    Texte.set("Résultat: " + str(x) + " \n Found solution in " + str(z))
+    Texte.set("Résultat: " + str(x) + "\n size " + str(len(x)) + " \n Found solution in " + str(z))
 
 def choix_bidirectional():
     tic = time.perf_counter()
@@ -118,7 +118,7 @@ def choix_bidirectional():
     Texte.set("Résultat: " + str(x))
     toc = time.perf_counter()
     z = toc -tic
-    Texte.set("Résultat: " + str(x) + " \n Found solution in " + str(z))
+    Texte.set("Résultat: " + str(x) + "\n size " + str(len(x)) + " \n Found solution in " + str(z))
 
 def choix_ucs():
     """method to launch UCS and print the result """
@@ -127,13 +127,32 @@ def choix_ucs():
     Texte.set("Résultat: " + str(x))
     toc = time.perf_counter()
     z = toc -tic
-    Texte.set("Résultat: " + str(x) + " \n Found solution in " + str(z))
+    Texte.set("Résultat: " + str(x) + "\n size " + str(len(x)) + " \n Found solution in " + str(z))
 
 def choisir_taquin_exactly():
     """method to have (recuperer) a taquin in fichier chose by the user """
     global taquin 
-    taquin.from_file("fichier.TXT")
+    taquin = Taquin(2,False)
+    from_file("fichier.txt")
     afficher()
+    
+def from_file(file_name):
+        """ method wich read a taquin from a file """
+        global taquin
+        with open(file_name,"r") as fichier:
+            size=0
+            for line in fichier :
+                size=size +1
+            if taquin.n()!=size:
+                taquin = Taquin(size,False)
+        with open(file_name,"r") as fichier2: #car deja fait un for line in fichier 
+            i=0
+            for line in fichier2 :
+                data = line.split()
+                for j in range(len(data)):
+                    taquin.mat[i][j] = int(data[j])
+                i = i+1
+        taquin.avail=list(np.argwhere(taquin.mat == 0)[0])
    
 FONT=('Ubuntu', 27, 'bold')
 master=Tk()

@@ -49,21 +49,6 @@ class Taquin:
         newTaq.mat = self.mat.copy()
         newTaq.avail = self.avail.copy()
         return newTaq
-    
-    """def copy_move_path(self , path):
-        newTaq = Taquin(self.n(),False)
-        newTaq.mat = self.mat.copy()
-        newTaq.avail = self.avail.copy()
-        for i in path:
-            if i == 'R' :
-                newTaq.move_right()
-            if i == 'L' :
-                newTaq.move_left()
-            if i == 'D' :
-                newTaq.move_down()
-            if i == 'U' :
-                newTaq.move_up()
-        return newTaq"""
       
     def move_left(self):
         """method to slide empty square left"""
@@ -116,19 +101,19 @@ class Taquin:
     def from_file(self,file_name):
         """ method wich read a taquin from a file """
         with open(file_name,"r") as fichier:
-            global taquin
             size=0
-            for line in fichier : #car length marche pas
+            for line in fichier :
                 size=size +1
-            taquin = Taquin(size,False)
-            with open("fichier.TXT","r") as fichier2: #car deja fait un for line in fichier 
-                i=0
-                for line in fichier2 :
-                    data = line.split()
-                    for j in range(size):
-                        self.mat[i][j]= int(data[j])
-                    i = i+1
-            self.avail=list(np.argwhere(taquin.mat == 0)[0])
+            if self.n()!=size:
+                self = Taquin(size,False)
+        with open(file_name,"r") as fichier2: #car deja fait un for line in fichier 
+            i=0
+            for line in fichier2 :
+                data = line.split()
+                for j in range(len(data)):
+                    self.mat[i][j] = int(data[j])
+                i = i+1
+        self.avail=list(np.argwhere(self.mat == 0)[0])
 
             
 
