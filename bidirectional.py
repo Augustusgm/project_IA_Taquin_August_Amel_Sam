@@ -52,10 +52,8 @@ class Bidirectional :
             solution.appendleft(current_f.action)
             current_f = current_f.father
         while current_b.action is not None:
-            solution.append(current_b.action)
+            solution.append(current_b.action)#############################
             current_b = current_b.father
         toc = time.perf_counter()
         print(f"Found solution in {toc - tic:0.4f} seconds")
         return solution
-
-
