@@ -45,25 +45,9 @@ def mix():
     """method to mix the tiles in the puzzle"""
     print("appel a mix")
     global i_empty, j_empty, items, taquin, bravo
-    cnv.delete("all")
-    items=[None]
-    taquin.mix_up(300) 
+    taquin.mix_up(100) 
     #taquin.avail=list(np.argwhere(taquin.mat == 0)[0]) #PAS NECESSAIRE NORMALEMENT
-    i_empty, j_empty= taquin.avail
-    items=[None for i in range(taquin.n() **2 )]#POURQUOI LA TAPELLES PAS JUSTE AFFICHER?
-    for i in range(taquin.n()):
-        for j in range(taquin.n()):
-            x, y=100*j, 100*i
-            A, B, C=(x, y), (x+100, y+100), (x+50, y+50)
-            rect=cnv.create_rectangle(A, B, fill="mediumturquoise")
-            txt=cnv.create_text(C, text=taquin.mat[i][j], fill="deeppink",
-                                font=FONT)
-            items[taquin.mat[i][j]]=(rect, txt) # items[12] : un tuple de la forme (rect, txt) où rect : id rectangle de la tuile 12 txt l’id du texte 12 ici
-    rect, txt=items[0]
-    cnv.delete(txt)
-    cnv.delete(rect)
-    lbl.configure(text="")
-    bravo=False
+    afficher()
     
 def afficher():
     """method to print the tiles in the puzzle"""
@@ -92,8 +76,8 @@ def choisir_taquin():
     """method to have (recuperer) the size of the taquin chose by the user """
     global taquin 
     num = int(taille.get())
-    taquin = Taquin(num,False,100)
-    mix()
+    taquin = Taquin(num,False)
+    afficher()
     
 def choix_astar_h2(): #se servir de la classe solve dans le futur 
     """method to launch the algo astar with h2 and print the result """
@@ -101,33 +85,30 @@ def choix_astar_h2(): #se servir de la classe solve dans le futur
     x=Astar(root = taquin, heuristic = heuristic2).solve()
     toc = time.perf_counter()
     z = toc -tic
-    Texte.set("Résultat: " + str(x) + "\n size " + str(len(x)) + " \n Found solution in " + str(z))
+    Texte.set("Résultat: " + str(list(x)) + "\n size " + str(len(x)) + " \n Found solution in " + str(z))
 
 def choix_astar_h1(): #se servir de la classe solve dans le futur 
     """method to launch astar with h1 and print the result """
     tic = time.perf_counter()
     x=Astar(root = taquin, heuristic = heuristic1).solve()
-    Texte.set("Résultat: " + str(x))
     toc = time.perf_counter()
     z = toc -tic
-    Texte.set("Résultat: " + str(x) + "\n size " + str(len(x)) + " \n Found solution in " + str(z))
+    Texte.set("Résultat: " + str(list(x)) + "\n size " + str(len(x)) + " \n Found solution in " + str(z))
 
 def choix_bidirectional():
     tic = time.perf_counter()
     x = Bidirectional(root = taquin).solve()
-    Texte.set("Résultat: " + str(x))
     toc = time.perf_counter()
     z = toc -tic
-    Texte.set("Résultat: " + str(x) + "\n size " + str(len(x)) + " \n Found solution in " + str(z))
+    Texte.set("Résultat: " + str(list(x)) + "\n size " + str(len(x)) + " \n Found solution in " + str(z))
 
 def choix_ucs():
     """method to launch UCS and print the result """
     tic = time.perf_counter()
     x = Astar(root = taquin, heuristic = no_heuristic).solve()
-    Texte.set("Résultat: " + str(x))
     toc = time.perf_counter()
     z = toc -tic
-    Texte.set("Résultat: " + str(x) + "\n size " + str(len(x)) + " \n Found solution in " + str(z))
+    Texte.set("Résultat: " + str(list(x)) + "\n size " + str(len(x)) + " \n Found solution in " + str(z))
 
 def choisir_taquin_exactly():
     """method to have (recuperer) a taquin in fichier chose by the user """
