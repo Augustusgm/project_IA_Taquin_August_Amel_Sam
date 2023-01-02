@@ -53,7 +53,7 @@ taquin.avail = [3,0]
 taquin.showmat()
 
 #a = Astar(root = taquin, heuristic = heuristic1)
-a = Bidirectional(root = taquin, heuristic_f = heuristic2, heuristic_b = heuristic2_b)
+a = Bidirectional(root = taquin)
 x = a.solve()
 print('solution: ',x)
 #toc = time.perf_counter()
