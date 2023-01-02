@@ -13,18 +13,6 @@ def heuristic2(taquin : Taquin):
                 value = value + abs(i - official[0]) + abs(j - official[1])
     return value
 
-def heuristic2_b(taquin : Taquin, tackin_goal):
-    """gives the manhattan distance from current state to the initial game for backward search"""
-    n = taquin.n()
-    value = 0
-    for i in range(n):
-        for j in range(n):
-            cur = taquin.mat[i][j]
-            if cur != 0: #prend pas en compte la case avail mais jsp si dois compter 
-                official = list(np.argwhere(tackin_goal == cur)[0])
-                value = value + abs(i - official[0]) + abs(j - official[1])
-    return value
-
 def heuristic1(taquin : Taquin):
     """method which returns the value for h1 :number of displaced tiles """
     n = taquin.n()
