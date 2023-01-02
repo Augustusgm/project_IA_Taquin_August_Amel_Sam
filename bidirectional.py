@@ -29,13 +29,7 @@ class Bidirectional :
                 toc = time.perf_counter()
                 print(f"You have been looking for the solution for {toc - tic:0.4f} seconds")
             self.f_explored.add(current_f.tobytes())
-            self.b_explored.add(current_b.tobytes()) 
-            if current_f.tobytes() in self.b_explored:
-                forward = True
-                break
-            if current_b.tobytes() in self.f_explored:
-                forward = False
-                break           
+            self.b_explored.add(current_b.tobytes())    
             for node in current_f.expand(no_heuristic):
                 if node.tobytes() not in self.f_explored:
                     self.f_frontier.put(node)                        
