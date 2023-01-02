@@ -2,7 +2,7 @@ from taquin import Taquin, GameError
 from prQueue import PrQueue
 from collections import deque
 from searchnode import SearchNode
-from heuristics import heuristic2, heuristic1, no_heuristic, heuristic2_b
+from heuristics import heuristic2, heuristic1, no_heuristic
 import time
 
 class Bidirectional :
