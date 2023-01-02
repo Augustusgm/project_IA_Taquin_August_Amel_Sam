@@ -6,7 +6,6 @@ from taquin import Taquin
 from astar import Astar 
 from bidirectional import Bidirectional
 from heuristics import heuristic2, heuristic1, no_heuristic
-from fichier import fichier
 import time
 
 
@@ -133,7 +132,7 @@ def choix_ucs():
 def choisir_taquin_exactly():
     """method to have (recuperer) a taquin in fichier chose by the user """
     global taquin 
-    taquin = fichier()
+    taquin.from_file("fichier.TXT")
     afficher()
    
 FONT=('Ubuntu', 27, 'bold')

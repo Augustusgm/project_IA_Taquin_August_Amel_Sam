@@ -111,6 +111,25 @@ class Taquin:
     def isGoal(self, goal):
         """method, returns boolean stating if the game has reached the goal state"""
         return np.all(self.mat == goal)
+    
+    
+    def from_file(self,file_name):
+        """ method wich read a taquin from a file """
+        with open(file_name,"r") as fichier:
+            global taquin
+            size=0
+            for line in fichier : #car length marche pas
+                size=size +1
+            taquin = Taquin(size,False)
+            with open("fichier.TXT","r") as fichier2: #car deja fait un for line in fichier 
+                i=0
+                for line in fichier2 :
+                    data = line.split()
+                    for j in range(size):
+                        self.mat[i][j]= int(data[j])
+                    i = i+1
+            self.avail=list(np.argwhere(taquin.mat == 0)[0])
+
             
 
 class GameError(Exception):
