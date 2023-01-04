@@ -13,14 +13,18 @@ class Bidirectional :
         self.f_frontier = PrQueue()
         self.b_frontier = PrQueue()
         self.goal = SearchNode(Taquin(root.n(),False),father = None, action =None,nb_action = 0, h = no_heuristic)
-     
+        self.f_frontier.put(self.root)
+        self.b_frontier.put(self.goal)
+        
     def solve(self):
         tic = time.perf_counter()
-        #current = self.frontier.get()
-        current_f = self.root
-        current_b = self.goal
+        current_f = self.f_frontier.get()
+        current_b = self.b_frontier.get()
         i = -1
-        while True:
+        doWhile = True
+        if current_f.tobytes() ==  current_b.tobytes():
+            doWhile = False
+        while doWhile:
             i+=1
             if i%100000 == 0:
                 print("taille frontiere forward ", self.f_frontier.size(), " taille extended forward", len(self.f_explored))
@@ -41,18 +45,21 @@ class Bidirectional :
             current_f = self.f_frontier.get()
             if current_f in self.b_frontier:
                 current_b = self.b_frontier.get_item(current_f)
+                doWhile = False
                 break
             current_b = self.b_frontier.get()
             if current_b in self.f_frontier:
                 current_f = self.f_frontier.get_item(current_b)
+                doWhile = False
                 break 
             ###########################???#################### check if optimal
         solution = deque()
         while current_f.action is not None:
             solution.appendleft(current_f.action)
             current_f = current_f.father
+        reverse_action = {'U':'D','D':'U','L':'R','R':'L'}
         while current_b.action is not None:
-            solution.append(current_b.action)#############################
+            solution.append(reverse_action[current_b.action])#############################
             current_b = current_b.father
         toc = time.perf_counter()
         print(f"Found solution in {toc - tic:0.4f} seconds")
