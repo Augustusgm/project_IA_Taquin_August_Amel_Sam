@@ -26,6 +26,6 @@ def heuristic1(taquin : Taquin):
                     valeur += 1
     return valeur
                 
-def no_heuristic(taquin : Taquin):
+def no_heuristic(taquin):
     """method to use uniform cost search """
     return 0
