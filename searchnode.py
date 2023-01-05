@@ -3,9 +3,45 @@ from heuristics import heuristic2, heuristic1, no_heuristic
 import numpy as np
 
 class SearchNode:
-    'this class contains the game, of size n, in the form of a matrice. n is the size of the game, r = True or False generates a shuffled or ordered version of the game'
+    """
+    A class used to represent a Node and expand the frontier 
+
+
+    Attributes
+    ----------
+    state : Taquin
+        
+    father : Taquin
+        
+    action : str
+        the action L or R or D or U
+    nb_action : int
+        number of actions
+    val : int
+        value for the heuristic + nb_action
+    
+
+    Methods
+    -------
+    expand : expand the frontier 
+    tobytes : creates hashable instance of the state
+    """
     
     def __init__(self,taquin : Taquin,father ,nb_action : int ,action : str, h = heuristic2):
+        """
+        Parameters
+        ----------
+        taquin : Taquin
+            
+        father : Taquin
+            
+        action : str
+            the action L or R or D or U
+        nb_action : int
+            number of actions
+        h : heuristic
+            the heuristic use to find the value
+        """
         self.state = taquin
         self.father = father
         self.action = action
@@ -19,8 +55,11 @@ class SearchNode:
     
  
     def expand(self, h):
-        """method to extand the frontier with an heuristic give us  """
-    
+        """method to extand the frontier with an heuristic give us
+        Parameters
+        ----------
+        h: heuristic used
+        """
         succ = []
         act = ['R','L','D','U']
         for i in range(4):
