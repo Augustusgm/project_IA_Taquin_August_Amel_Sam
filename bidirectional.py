@@ -6,7 +6,12 @@ from heuristics import heuristic2, heuristic1, no_heuristic
 import time
 
 class Bidirectional :
+    
     def __init__(self, root : Taquin):
+        """
+        Args:
+            root (Taquin): the initial state of the game.
+        """
         self.root = SearchNode(root,father = None, action =None,nb_action = 0, h = no_heuristic)
         self.f_explored = set()
         self.b_explored = set()
@@ -17,6 +22,23 @@ class Bidirectional :
         self.b_frontier.put(self.goal)
         
     def solve(self, check_frontier = False):
+        """Solves the game instance with bidirectional search.
+
+        Parameters
+        ----------
+        check_frontier : bool, optional
+            should the output include the maximum size of the frontier (default is False)
+
+        Output
+        ------
+        tuple containing (path, computation time, frontier max size)
+        
+        Raises
+        ------
+        GameError
+            If no path exists to reach the goal state
+        """
+
         maxfrontier = 2
         tic = time.perf_counter()
         current_f = self.f_frontier.get()

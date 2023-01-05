@@ -8,7 +8,7 @@ def heuristic2(taquin : Taquin):
     for i in range(n):
         for j in range(n):
             cur = taquin.mat[i][j]
-            if cur != 0: #prend pas en compte la case avail mais jsp si dois compter 
+            if cur != 0:  
                 official = divmod(cur-1,n)
                 value = value + abs(i - official[0]) + abs(j - official[1])
     return value
@@ -20,7 +20,7 @@ def heuristic1(taquin : Taquin):
     for i in range(n):
         for j in range(n):
             cur = taquin.mat[i][j]
-            if cur != taquin.mat[taquin.avail[0]][taquin.avail[1]]: #prend pas en compte la case avail mais jsp si dois compter 
+            if cur != taquin.mat[taquin.avail[0]][taquin.avail[1]]: 
                 official = list(divmod(cur,n))
                 if (i!=official[0]) or (j!=official[1]-1):
                     valeur += 1

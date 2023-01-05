@@ -1,24 +1,21 @@
 from random import randrange
 from tkinter import *
 import numpy as np
-import random
 from taquin import Taquin
 from astar import Astar 
 from bidirectional import Bidirectional
 from heuristics import heuristic2, heuristic1, no_heuristic
-import time
 
 
 def clic(event):
-    """method to move the title in the puzzle """
-    global i_empty, j_empty, bravo
-    if bravo:
-        return
-    i=event.y//100 #coordonnée des clics
+    """method to perceive where we click in the interface.
+    Also tests if the goal is reached"""
+    global i_empty, j_empty
+    i=event.y//100 
     j=event.x//100
     nro=taquin.mat[i][j]
     tile, txt=items[nro] 
-    if j+1 ==j_empty and i==i_empty: #if elif pour voir si on peut deplacer a droite a gauche en haut en bas 
+    if j+1 ==j_empty and i==i_empty: 
         cnv.move(tile, 100, 0)
         cnv.move(txt, 100, 0)
     elif j-1 ==j_empty and i==i_empty:
@@ -38,23 +35,21 @@ def clic(event):
     taquin.avail=list(np.argwhere(taquin.mat == 0)[0])
     if (taquin.mat==taquin.goal()).all():
         lbl.configure(text="Bravo !")
-        bravo=True
 
 
 def mix():
-    """method to mix the tiles in the puzzle"""
+    """method to mix the tiles in the puzzle. Each clicks generates 100 random moves which mixes up the tiles"""
     print("appel a mix")
-    global i_empty, j_empty, items, taquin, bravo
+    global i_empty, j_empty, items, taquin
     taquin.mix_up(100) 
-    #taquin.avail=list(np.argwhere(taquin.mat == 0)[0]) #PAS NECESSAIRE NORMALEMENT
     afficher()
     
+    
 def afficher():
-    """method to print the tiles in the puzzle"""
-    global i_empty, j_empty, items, taquin, bravo
+    """method to print the tiles of the puzzle"""
+    global i_empty, j_empty, items, taquin
     cnv.delete("all")
     items=[None]
-    #taquin.avail=list(np.argwhere(taquin.mat == 0)[0]) #NORMALEMENT AVAIL EST DEJA DEFINIE
     i_empty, j_empty= taquin.avail
     items=[None for i in range(taquin.n() **2 )]
     for i in range(taquin.n()):
@@ -64,7 +59,7 @@ def afficher():
             rect=cnv.create_rectangle(A, B, fill="mediumturquoise")
             txt=cnv.create_text(C, text=taquin.mat[i][j], fill="deeppink",
                                 font=FONT)
-            items[taquin.mat[i][j]]=(rect, txt) # items[12] : un tuple de la forme (rect, txt) où rect : id rectangle de la tuile 12 txt l’id du texte 12 ici
+            items[taquin.mat[i][j]]=(rect, txt) 
     rect, txt=items[0]
     cnv.delete(txt)
     cnv.delete(rect)
@@ -72,53 +67,50 @@ def afficher():
     bravo=False
     
 
-def choisir_taquin():
-    """method to have (recuperer) the size of the taquin chose by the user """
+def choose_taquin():
+    """method to have get the size of the taquin chosen by the user and test if it is a good size """
     global taquin 
-    num = int(taille.get())
-    taquin = Taquin(num,False)
-    afficher()
+    Texte.set("")
+    num = int(size.get())
+    if np.sqrt(num + 1) % 1 != 0:
+        text.set("this number " + str(num) + " cannot create a game, you can choose another one ")
+    else :
+        taquin = Taquin(int(np.sqrt(num + 1)),False)
+        afficher()
+        text.set("")
     
-def choix_astar_h2(): #se servir de la classe solve dans le futur 
+    
+def choice_astar_h2(): 
     """method to launch the algo astar with h2 and print the result """
-    tic = time.perf_counter()
-    x=Astar(root = taquin, heuristic = heuristic2).solve()
-    toc = time.perf_counter()
-    z = toc -tic
-    Texte.set("Résultat: " + str(list(x)) + "\n size " + str(len(x)) + " \n Found solution in " + str(z))
+    x, t, fr =Astar(root = taquin, heuristic = heuristic2).solve()
+    Texte.set("Résultat: " + str(list(x)) + "\n size " + str(len(x)) + " \n Found solution in " + str(t))
 
-def choix_astar_h1(): #se servir de la classe solve dans le futur 
+def choice_astar_h1(): 
     """method to launch astar with h1 and print the result """
-    tic = time.perf_counter()
-    x=Astar(root = taquin, heuristic = heuristic1).solve()
-    toc = time.perf_counter()
-    z = toc -tic
-    Texte.set("Résultat: " + str(list(x)) + "\n size " + str(len(x)) + " \n Found solution in " + str(z))
+    x, t , r=Astar(root = taquin, heuristic = heuristic1).solve()
+    Texte.set("Résultat: " + str(list(x)) + "\n size " + str(len(x)) + " \n Found solution in " + str(t))
 
-def choix_bidirectional():
-    tic = time.perf_counter()
-    x = Bidirectional(root = taquin).solve()
-    toc = time.perf_counter()
-    z = toc -tic
-    Texte.set("Résultat: " + str(list(x)) + "\n size " + str(len(x)) + " \n Found solution in " + str(z))
+def choice_bidirectional():
+    """method to launch bidirectionnal algo and print the result """
+    x, t ,fr = Bidirectional(root = taquin).solve()
+    Texte.set("Résultat: " + str(list(x)) + "\n size " + str(len(x)) + " \n Found solution in " + str(t))
 
-def choix_ucs():
+def choice_ucs():
     """method to launch UCS and print the result """
-    tic = time.perf_counter()
-    x = Astar(root = taquin, heuristic = no_heuristic).solve()
-    toc = time.perf_counter()
-    z = toc -tic
-    Texte.set("Résultat: " + str(list(x)) + "\n size " + str(len(x)) + " \n Found solution in " + str(z))
+    x, t , fr= Astar(root = taquin, heuristic = no_heuristic).solve()
+    Texte.set("Résultat: " + str(list(x)) + "\n size " + str(len(x)) + " \n Found solution in " + str(t))
 
-def choisir_taquin_exactly():
-    """method to have (recuperer) a taquin in fichier chose by the user """
+def choose_taquin_exactly():
+    """method to get a taquin from the file fichier.txt """
     global taquin 
     taquin = Taquin(2,False)
     from_file("fichier.txt")
     afficher()
     
+    
 def from_file(file_name):
-        """ method wich read a taquin from a file """
+        """ method which reads a taquin from a file
+        file_name : the file which is read"""
         global taquin
         with open(file_name,"r") as fichier:
             size=0
@@ -139,15 +131,14 @@ FONT=('Ubuntu', 27, 'bold')
 master=Tk()
 master.title('Taquin')
 
-libelle = Label(master, text='Entrez la taille de votre taquin: 3, 4, 5 ...')
+libelle = Label(master, text='Enter the size of the taquin : 3, 8, 15, 24 ...')
 libelle.pack()
 
-taille = Entry(master)
-taille.pack(pady=10)
-bouton_soumission = Button(master, text='Enter', command=choisir_taquin, padx=15, pady=5)
+size = Entry(master)
+size.pack(pady=10)
+
+bouton_soumission = Button(master, text='Enter', command=choose_taquin, padx=15, pady=5)
 bouton_soumission.pack(padx=10, pady=(0, 10))
-
-
 
 cnv=Canvas(master, width=800, height=700)
 cnv.pack(side='left')
@@ -156,29 +147,33 @@ lbl=Label(text="      ", font=('Ubuntu', 25, 'bold'),
           justify=CENTER, width=7)
 lbl.pack(side="left")
 
+text = StringVar()
+label = Label(master,textvariable = text, bg ="red")
+label.pack()
+
 Texte = StringVar()
-LabelResultat = Label(master, textvariable = Texte , bg ="grey")
+LabelResultat = Label(master, textvariable = Texte , bg ="pink")
 LabelResultat.pack()
 
-btn=Button(text="Mélanger", command=mix)
+
+btn=Button(text="Mix (100 random moves)", command=mix)
 btn.pack()
 
-b5 = Button (text = "choose your taquin with fichier", command=choisir_taquin_exactly)
+b5 = Button (text = "choose your taquin with file : fichier.txt", command=choose_taquin_exactly)
 b5.pack()
 
-b1 = Button (text = "solve with Astar with h1", command=choix_astar_h1)
+b1 = Button (text = "solve with Astar with h1", command=choice_astar_h1)
 b1.pack()
-b2 = Button (text = "solve with Astar with h2", command=choix_astar_h2)
+
+b2 = Button (text = "solve with Astar with h2", command=choice_astar_h2)
 b2.pack()
-b3 = Button (text = "solve with UCS", command=choix_ucs)
+
+b3 = Button (text = "solve with UCS", command=choice_ucs)
 b3.pack()
-b4 = Button (text = "solve with biderectionnal", command=choix_bidirectional)
+
+b4 = Button (text = "solve with biderectionnal", command=choice_bidirectional)
 b4.pack()
 
-
 cnv.bind("<Button-1>",clic)
-
-
-
     
 master.mainloop()
