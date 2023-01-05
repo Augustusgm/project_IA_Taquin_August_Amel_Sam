@@ -9,13 +9,28 @@ class Bidirectional :
     """
     Creates object which solves a game of given initial state, with the bidirectional algorithm
     
+    Attributes
+    ----------
+    root (Taquin):
+        the initial state
+    b_exlpored (Set):
+        set containing the explored states of backward search
+    f_exlpored (Set):
+        set containing the explored states of forward search
+    b_frontier (prQueue):
+        states yet to be explored in backward search
+    f_frontier (prQueue):
+        states yet to be explored in forward search
+    goal:
+        the goal state
+        
     Method
     ------
     solve : solves the game and gives path. 
     """
     def __init__(self, root : Taquin):
         """
-        Args:
+        Parameters:
             root (Taquin): the initial state of the game.
         """
         self.root = SearchNode(root,father = None, action =None,nb_action = 0, h = no_heuristic)
