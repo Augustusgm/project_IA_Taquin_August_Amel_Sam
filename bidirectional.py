@@ -6,7 +6,13 @@ from heuristics import heuristic2, heuristic1, no_heuristic
 import time
 
 class Bidirectional :
+    """
+    Creates object which solves a game of given initial state
     
+    Method
+    ------
+    solve : solves the game and gives path. 
+    """
     def __init__(self, root : Taquin):
         """
         Args:
