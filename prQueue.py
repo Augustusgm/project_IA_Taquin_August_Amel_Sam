@@ -10,7 +10,7 @@ class PrQueue:
     
     Attributes
     ----------
-    _queue (heapdict):
+    _queue : heapdict
         a priority queue storing byte form of states and their priority order
     _dict :
         python dictionary linking byte form of states to the searchnode whith smallest path
