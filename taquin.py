@@ -126,7 +126,11 @@ class Taquin:
             print()
             
     def tobytes(self):
-        """returns the state of the game in byte form to have a hashable representation of a state"""
+        """returns the state of the game in byte form to have a hashable representation of a state
+        
+        Returns
+        -------
+        Bytes: byte representation of state matrix"""
         return self.mat.tobytes()
     
     def isGoal(self, goal):

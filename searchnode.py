@@ -10,13 +10,17 @@ class SearchNode:
     Attributes
     ----------
     state : Taquin
+        current state
         
-    father : Taquin
+    father : Searchnode or None fro root node
+        father node
         
     action : str
-        the action L or R or D or U
+        the action L or R or D or U applied from father state to get to current state
+        
     nb_action : int
-        number of actions
+        number of actions to get to current node from root node
+        
     val : int
         value for the heuristic + nb_action
     
@@ -32,13 +36,17 @@ class SearchNode:
         Parameters
         ----------
         taquin : Taquin
+            current state
             
-        father : Taquin
+        father : Searchnode or None fro root node
+            father node
             
         action : str
             the action L or R or D or U
+            
         nb_action : int
             number of actions
+            
         h : heuristic
             the heuristic use to find the value
         """
@@ -48,17 +56,17 @@ class SearchNode:
         self.nb_action = nb_action
         self.val = h(self.state) + self.nb_action
             
-        
-    #def from_path(self, path):
-    #    self.path = path.copy()
-    #    self.val = self.h(self.state) + len(self.path)
-    
- 
     def expand(self, h):
-        """method to extand the frontier with an heuristic give us
+        """
+        method to extand the frontier with an heuristic give us
+        
         Parameters
         ----------
-        h: heuristic used
+        h: the heuristic used
+        
+        Output
+        ------
+        list : a list of searchnodes
         """
         succ = []
         act = ['R','L','D','U']
@@ -79,7 +87,11 @@ class SearchNode:
         return succ
     
     def tobytes(self):
-        """method to access to the data of searchNode and l'utiliser en general dans le code"""
+        """creates hashable instance of the state
+        
+        Returns
+        -------
+        Bytes: byte representation of state matrix"""
         return self.state.tobytes()
     
 
