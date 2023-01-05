@@ -2,22 +2,54 @@ import numpy as np
 import random
 
 class Taquin:
-    'this class contains the game, of size n, in the form of a matrice. n is the size of the game, r = True or False generates a shuffled or ordered version of the game'
+    """
+    A class used to represent a Taquin
+
+
+    Attributes
+    ----------
+    mat : numpy nd-array
+        the matrix storing every tile positions
+    avail : list
+        the position of the blank tile
+
+    Methods
+    -------
+    n : size of matrix ( sqrt(n+1))
+    goal : creates a goal state of the same size as current state
+    mix_up : generates random moves
+    clone : creates a copy of current state
+    move_left, move_right, move_up, move_down : changes state with said action
+    showmat : prints the matrice in the terminal
+    tobytes : creates hashable instance of the state
+    isGoal: checks if current state is a goal state
+    from_file : gets a game from a file (0 the available space)
+    """
     
     def __init__(self, n : int, random : bool, solvable : int = 0):
-      seq = np.append(np.arange(1, n**2),[0])
-      if random and solvable == 0:
-          rng = np.random.default_rng()
-          rng.shuffle(seq)
-      self.mat = np.reshape(seq,(n,n))
-      self.avail = [n-1,n-1]
-      if random:
-          self.avail = list(np.argwhere(self.mat == 0)[0])
-          if solvable:
-              self.mix_up(solvable)
+        """
+        Parameters
+        ----------
+        n : int
+            the size of matrix is n*n and the game has size n²-1
+        random : bool
+            To choose if the created game should be random or not. Does not necessarily create a solvable game/
+        solvable : int, optional
+            if non 0 and random is True, creates a solvable game from that number of random moves.
+        """
+        seq = np.append(np.arange(1, n**2),[0])
+        if random and solvable == 0:
+            rng = np.random.default_rng()
+            rng.shuffle(seq)
+        self.mat = np.reshape(seq,(n,n))
+        self.avail = [n-1,n-1]
+        if random:
+            self.avail = list(np.argwhere(self.mat == 0)[0])
+            if solvable:
+                self.mix_up(solvable)
     
     def n(self):
-        """function to avoid storing useless information on the size of the game"""
+        """method giving back size, used to avoid storing useless information on the size of the game"""
         return self.mat.shape[0]
     
     def goal(self):
@@ -26,7 +58,11 @@ class Taquin:
         return np.reshape(seq,(self.n(),self.n()))
     
     def mix_up(self, n : int):
-        """generate n movements, if we start from a goal state then the returned game is solvable."""
+        """method to mix_up by generating n movements, if we start from a goal state then the returned game is solvable.
+        Parameters
+        ----------
+        n : int
+            number of moves"""
         act = ['R','L','D','U']
         for _ in range(n):
             try:
@@ -80,7 +116,7 @@ class Taquin:
             self.avail[0]-=1
                 
     def showmat(self):
-        """prints the game state in the terminal"""
+        """method to print the game state in the terminal"""
         for ligne in self.mat:
             for col in ligne:
                 if col == 0:
@@ -94,12 +130,12 @@ class Taquin:
         return self.mat.tobytes()
     
     def isGoal(self, goal):
-        """method, returns boolean stating if the game has reached the goal state"""
+        """method which returns boolean stating if the game has reached the goal state"""
         return np.all(self.mat == goal)
     
     
     def from_file(self,file_name):
-        """ method wich read a taquin from a file """
+        """ method which reads a taquin from a file """
         with open(file_name,"r") as fichier:
             size=0
             for line in fichier :
