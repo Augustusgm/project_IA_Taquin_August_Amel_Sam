@@ -83,22 +83,22 @@ def choose_taquin():
 def choice_astar_h2(): 
     """method to launch the algo astar with h2 and print the result """
     x, t, fr =Astar(root = taquin, heuristic = heuristic2).solve()
-    Texte.set("Résultat: " + str(list(x)) + "\n size " + str(len(x)) + " \n Found solution in " + str(t))
+    Texte.set("Results with A* with h2 : " + str(list(x)) + "\n size " + str(len(x)) + " \n Found solution in " + str(t))
 
 def choice_astar_h1(): 
     """method to launch astar with h1 and print the result """
     x, t , r=Astar(root = taquin, heuristic = heuristic1).solve()
-    Texte.set("Résultat: " + str(list(x)) + "\n size " + str(len(x)) + " \n Found solution in " + str(t))
+    Texte.set("Results with A* with h1 : " + str(list(x)) + "\n size " + str(len(x)) + " \n Found solution in " + str(t))
 
 def choice_bidirectional():
     """method to launch bidirectionnal algo and print the result """
     x, t ,fr = Bidirectional(root = taquin).solve()
-    Texte.set("Résultat: " + str(list(x)) + "\n size " + str(len(x)) + " \n Found solution in " + str(t))
+    Texte.set("Results with bidirectionnal algo: " + str(list(x)) + "\n size " + str(len(x)) + " \n Found solution in " + str(t))
 
 def choice_ucs():
     """method to launch UCS and print the result """
     x, t , fr= Astar(root = taquin, heuristic = no_heuristic).solve()
-    Texte.set("Résultat: " + str(list(x)) + "\n size " + str(len(x)) + " \n Found solution in " + str(t))
+    Texte.set("Results with UCS: " + str(list(x)) + "\n size " + str(len(x)) + " \n Found solution in " + str(t))
 
 def choose_taquin_exactly():
     """method to get a taquin from the file fichier.txt """
