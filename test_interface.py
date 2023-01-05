@@ -108,24 +108,27 @@ def choose_taquin_exactly():
     afficher()
     
     
-def from_file(file_name):
-        """ method which reads a taquin from a file
-        file_name : the file which is read"""
-        global taquin
-        with open(file_name,"r") as fichier:
-            size=0
-            for line in fichier :
-                size=size +1
-            if taquin.n()!=size:
-                taquin = Taquin(size,False)
-        with open(file_name,"r") as fichier2: #car deja fait un for line in fichier 
-            i=0
-            for line in fichier2 :
-                data = line.split()
-                for j in range(len(data)):
-                    taquin.mat[i][j] = int(data[j])
-                i = i+1
-        taquin.avail=list(np.argwhere(taquin.mat == 0)[0])
+def from_file(file_name) :
+    """ Creates object which solves a g from_file(file_name):
+    method which reads a taquin from a file
+    Parameters
+    ----------
+    file_name : the file which is read"""
+    global taquin
+    with open(file_name,"r") as fichier:
+        size=0
+        for line in fichier :
+            size=size +1
+        if taquin.n()!=size:
+            taquin = Taquin(size,False)
+    with open(file_name,"r") as fichier2: #car deja fait un for line in fichier 
+        i=0
+        for line in fichier2 :
+            data = line.split()
+            for j in range(len(data)):
+                taquin.mat[i][j] = int(data[j])
+            i = i+1
+    taquin.avail=list(np.argwhere(taquin.mat == 0)[0])
    
 FONT=('Ubuntu', 27, 'bold')
 master=Tk()
