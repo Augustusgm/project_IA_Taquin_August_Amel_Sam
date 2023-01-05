@@ -15,11 +15,11 @@ test_methods = [1,2,3,4]
 #3 for UCS=BFS
 #4 for bidirectional search
 
-number_tests = 5
+number_tests = 10
 check_frontier = True 
-game_number = 15
+game_number = 8
 
-timelimit = True
+timelimit = False
 n_time = 600 #limit : 10 min 
 
 
