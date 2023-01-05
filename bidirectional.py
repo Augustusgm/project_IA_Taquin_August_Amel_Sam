@@ -7,7 +7,7 @@ import time
 
 class Bidirectional :
     """
-    Creates object which solves a game of given initial state
+    Creates object which solves a game of given initial state, with the bidirectional algorithm
     
     Method
     ------
