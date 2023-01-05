@@ -10,13 +10,13 @@ class Astar :
     
     Attributes
     ----------
-    root (Taquin):
+    root : Taquin
         the initial state
     h :
         the chosen heuristic among the functions in heuristics.py file
-    exlpored (Set):
+    explored : set
         set containing the explored states
-    frontier (prQueue):
+    frontier : prQueue
         states yet to explore
     goal:
         the goal state
@@ -29,11 +29,11 @@ class Astar :
         """
         Parameters
         ----------
-            root (Taquin): 
-                the initial state of the game.
+        root : Taquin 
+            the initial state of the game.
                 
-            heuristic: 
-                the chosen heuristic
+        heuristic: 
+            the chosen heuristic
 
         """
         

@@ -20,7 +20,7 @@ check_frontier = True
 game_number = 15
 
 timelimit = True
-n_time = 600
+n_time = 600 #limit : 10 min 
 
 
 
@@ -31,10 +31,15 @@ def signal_handler(signum, frame):
         raise Exception("Timed out!")
 
 def try_solve( a, check_frontier=False, timelimit : bool = False, n_time : int = 0):
-    """function which takes as imput an astar or bidirectional object a,
-    check_frontier: bool which determines if we compute the frontier or not,
-    timelimit: bool if True there is a timelimit on the function call of solve,
-    n_time: int, is the number of seconds of the limit.
+    """function which takes as imput an astar or bidirectional object a
+    Parameters 
+    ---------
+    check_frontier: bool
+        which determines if we compute the frontier or not
+    timelimit: bool
+        if True there is a timelimit on the function call of solve
+    n_time: int
+        is the number of seconds of the limit
     """
     if timelimit:
         signal.signal(signal.SIGALRM, signal_handler)
