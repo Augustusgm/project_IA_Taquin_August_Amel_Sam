@@ -19,7 +19,7 @@ class Taquin:
     goal : creates a goal state of the same size as current state
     mix_up : generates random moves
     clone : creates a copy of current state
-    move_left, move_right, move_up, move_down : changes state with said action
+    move_left, move_right, move_up, move_down : changes state with said action, , this switches the values in the state matrix between the empty square and the one under it
     showmat : prints the matrice in the terminal
     tobytes : creates hashable instance of the state
     isGoal: checks if current state is a goal state
@@ -35,7 +35,7 @@ class Taquin:
         random : bool
             To choose if the created game should be random or not. Does not necessarily create a solvable game/
         solvable : int, optional
-            if non 0 and random is True, creates a solvable game from that number of random moves.
+            if not 0 and random is True, creates a solvable game from that number of random moves.
         """
         seq = np.append(np.arange(1, n**2),[0])
         if random and solvable == 0:
@@ -102,7 +102,7 @@ class Taquin:
         self.avail[1]+=1
         
     def move_down(self):
-            """method to slide empty square down, this switches the values in the state matrix between the empty square and the one under it"""
+            """method to slide empty square down"""
             assert self.avail[0] != self.n()-1, "cannot move down"
             self.mat[self.avail[0]][self.avail[1]] = self.mat[self.avail[0]+1][self.avail[1]]
             self.mat[self.avail[0]+1][self.avail[1]] = 0
